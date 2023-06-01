@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.dc_keating_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.dc.keating.entities.KtCommercant</class>
+    <class>com.dc.keating.entities.KtRole</class>
+    <class>com.dc.keating.entities.KtSousCategorieProduit</class>
+    <class>com.dc.keating.entities.UfTerminal</class>
+    <class>com.dc.keating.entities.Parametre</class>
+    <class>com.dc.keating.entities.KtPays</class>
+    <class>com.dc.keating.entities.KtRapport</class>
+    <class>com.dc.keating.entities.KtPointDeVente</class>
+    <class>com.dc.keating.entities.KtFournisseur</class>
+    <class>com.dc.keating.entities.KtUtilisateur</class>
+    <class>com.dc.keating.entities.KtProduit</class>
+    <class>com.dc.keating.entities.KtVille</class>
+    <class>com.dc.keating.entities.KtPrivilege</class>
+    <class>com.dc.keating.entities.KtCategorieProduit</class>
+    <class>com.dc.keating.entities.KtRegion</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/keating?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="Constyk@mga1"/>
+    </properties>
+  </persistence-unit>
+</persistence>
