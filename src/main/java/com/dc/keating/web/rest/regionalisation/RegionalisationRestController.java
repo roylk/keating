@@ -154,7 +154,7 @@ public class RegionalisationRestController {
         return rep;
     }
 
-    @DeleteMapping(value = "/regions/{id}")
+    @DeleteMapping(value = "/villes/{id}")
     public Reponse deleteVille(@PathVariable("id") Integer id) {
         Reponse rep;
         try {
