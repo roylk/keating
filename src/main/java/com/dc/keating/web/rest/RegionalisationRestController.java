@@ -9,6 +9,8 @@ import com.dc.keating.entities.KtPays;
 import com.dc.keating.entities.KtRegion;
 import com.dc.keating.entities.KtVille;
 import com.dc.keating.service.regionalisation.IRegionalisationService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -32,12 +34,14 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 // @CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@Api(tags = "API Regionalisation")
 @RequestMapping("/keating/api")
 public class RegionalisationRestController {
 
     @Autowired
     private IRegionalisationService regionalisationService;
-
+    
+    @ApiOperation("Créer un nouveau pays")
     @PostMapping(value = "/pays", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse savePays(@RequestBody KtPays pays) {
         Reponse rep;
@@ -50,7 +54,8 @@ public class RegionalisationRestController {
         }
         return rep;
     }
-
+    
+    @ApiOperation("Créer une nouvelle region")
     @PostMapping(value = "/region", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveRegion(@RequestBody KtRegion region) {
         Reponse rep;
@@ -64,7 +69,7 @@ public class RegionalisationRestController {
         }
         return rep;
     }
-
+    @ApiOperation("Créer une nouvelle ville")
     @PostMapping(value = "/ville", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveVille(@RequestBody KtVille ville) {
         Reponse rep;
@@ -78,7 +83,7 @@ public class RegionalisationRestController {
         return rep;
 
     }
-
+    @ApiOperation("Mettre à jour un pays existant")
     @PutMapping(value = "/payss/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse updatePays(@RequestBody KtPays pays, @PathVariable("code") String code) {
         Reponse rep;
@@ -93,7 +98,7 @@ public class RegionalisationRestController {
 
         return rep;
     }
-
+     @ApiOperation("Mettre à jour une région")
     @PutMapping(value = "/regions/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse updateRegion(@RequestBody KtRegion region, @PathVariable("id") Integer id) {
         Reponse rep;
@@ -108,7 +113,8 @@ public class RegionalisationRestController {
 
         return rep;
     }
-
+    
+    @ApiOperation("Mettre à jour une ville")
     @PutMapping(value = "/villes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse updateVille(@RequestBody KtVille ville, @PathVariable("id") Integer id) {
         Reponse rep;
@@ -128,6 +134,8 @@ public class RegionalisationRestController {
 	public void deletePays(@PathVariable("code") String code) {
 		regionalisationService.deletePays(code);
 	}*/
+    
+    @ApiOperation("Supprimer un pays")
     @DeleteMapping(value = "/payss/{code}")
     public Reponse deletePays(@PathVariable("code") String code) {
         Reponse rep;
@@ -140,7 +148,8 @@ public class RegionalisationRestController {
 
         return rep;
     }
-
+    
+    @ApiOperation("Supprimer une région")
     @DeleteMapping(value = "/regions/{id}")
     public Reponse deleteRegion(@PathVariable("id") Integer id) {
         Reponse rep;
@@ -154,6 +163,7 @@ public class RegionalisationRestController {
         return rep;
     }
 
+    @ApiOperation("Supprimer une ville")
     @DeleteMapping(value = "/villes/{id}")
     public Reponse deleteVille(@PathVariable("id") Integer id) {
         Reponse rep;
@@ -165,7 +175,8 @@ public class RegionalisationRestController {
         }
         return rep;
     }
-
+    
+    @ApiOperation("Liste des pays")
     @GetMapping(value = "/payss", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllPays() {
         Reponse rep;
@@ -176,7 +187,8 @@ public class RegionalisationRestController {
         }
         return rep;
     }
-
+    
+    @ApiOperation("Liste des pays par page")
     @GetMapping(value = "/ppays", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllPayss(@RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "5") int size) {
@@ -188,9 +200,9 @@ public class RegionalisationRestController {
 
         }
         return rep;
-
     }
 
+    @ApiOperation("Liste des regions par page")
     @GetMapping(value = "/pregions", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllRegion(@RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "5") int size) {
@@ -204,7 +216,8 @@ public class RegionalisationRestController {
         return rep;
 
     }
-
+    
+    @ApiOperation("Liste des regions")
     @GetMapping(value = "/regions", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllRegions() {
         Reponse rep;
@@ -215,7 +228,8 @@ public class RegionalisationRestController {
         }
         return rep;
     }
-
+    
+    @ApiOperation("Liste des villes par page")
     @GetMapping(value = "/pvilles", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllVille(@RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "5") int size) {
@@ -228,7 +242,8 @@ public class RegionalisationRestController {
         }
         return rep;
     }
-
+    
+    @ApiOperation("Liste des villes")
     @GetMapping(value = "/villes", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllVilles() {
         Reponse rep;
@@ -240,6 +255,7 @@ public class RegionalisationRestController {
         return rep;
     }
 
+    @ApiOperation("Liste des regions par pays")
     @GetMapping(value = "/regionparpays", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllRegionByPays(String codeP) {
         Reponse rep;
@@ -252,7 +268,8 @@ public class RegionalisationRestController {
 
         return rep;
     }
-
+    
+    @ApiOperation("Liste des villes par region")
     @GetMapping(value = "/villeparregion", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllVilleByPays(String codeR) {
         Reponse rep;
@@ -262,7 +279,6 @@ public class RegionalisationRestController {
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);
         }
-
         return rep;
     }
 
