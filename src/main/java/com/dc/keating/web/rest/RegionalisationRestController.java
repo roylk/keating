@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.dc.keating.web.rest.regionalisation;
+package com.dc.keating.web.rest;
 
 import com.dc.keating.config.Reponse;
 import com.dc.keating.entities.KtPays;
