@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.dc</groupId>
 	<artifactId>keating</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>keating</name>
 	<description>projet de fin de formation dc</description>
 	<properties>
