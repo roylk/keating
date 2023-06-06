@@ -54,13 +54,15 @@ public class KtCommercant implements Serializable {
     private String email;
     @Column(name = "adresse", length = 45)
     private String adresse;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commercantCode")
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "commercantCode")
     private List<KtPointDeVente> ktPointDeVenteList;
     @OneToMany(mappedBy = "commercant")
-    private List<KtUtilisateur> ktUtilisateurList;
+    private List<KtUtilisateur> ktUtilisateurList;*/
     @JoinColumn(name = "ville", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private KtVille ville;
+    @Column(nullable = false)
+    private short statut;
 
     public KtCommercant() {
     }
@@ -74,6 +76,24 @@ public class KtCommercant implements Serializable {
         this.raisonSociale = raisonSociale;
         this.telephone = telephone;
         this.email = email;
+    }
+
+    public void setStatut(short statut) {
+        this.statut = statut;
+    }
+
+    public short getStatut() {
+        return statut;
+    }
+
+    public KtCommercant(String code, String raisonSociale, String telephone, String email, String adresse, KtVille ville, short statut) {
+        this.code = code;
+        this.raisonSociale = raisonSociale;
+        this.telephone = telephone;
+        this.email = email;
+        this.adresse = adresse;
+        this.ville = ville;
+        this.statut = statut;
     }
 
     public String getCode() {
@@ -116,7 +136,7 @@ public class KtCommercant implements Serializable {
         this.adresse = adresse;
     }
 
-    @XmlTransient
+   /*@XmlTransient
     public List<KtPointDeVente> getKtPointDeVenteList() {
         return ktPointDeVenteList;
     }
@@ -132,7 +152,7 @@ public class KtCommercant implements Serializable {
 
     public void setKtUtilisateurList(List<KtUtilisateur> ktUtilisateurList) {
         this.ktUtilisateurList = ktUtilisateurList;
-    }
+    }*/
 
     public KtVille getVille() {
         return ville;

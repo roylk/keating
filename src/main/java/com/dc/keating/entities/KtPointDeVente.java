@@ -59,16 +59,17 @@ public class KtPointDeVente implements Serializable {
     @Basic(optional = false)
     @Column(name = "adresse", nullable = false, length = 45)
     private String adresse;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pointDeVente")
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "pointDeVente")
     private List<KtProduit> ktProduitList;
     @OneToMany(mappedBy = "pointDeVente")
-    private List<UfTerminal> ufTerminalList;
+    private List<UfTerminal> ufTerminalList;*/
     @JoinColumn(name = "commercant_code", referencedColumnName = "code", nullable = false)
     @ManyToOne(optional = false)
     private KtCommercant commercantCode;
     @JoinColumn(name = "ville", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private KtVille ville;
+    
 
     public KtPointDeVente() {
     }
@@ -77,13 +78,16 @@ public class KtPointDeVente implements Serializable {
         this.code = code;
     }
 
-    public KtPointDeVente(String code, String nom, String email, String telephone, short statut, String adresse) {
+  
+    public KtPointDeVente(String code, String nom, String email, String telephone, short statut, String adresse, KtCommercant commercantCode, KtVille ville) {
         this.code = code;
         this.nom = nom;
         this.email = email;
         this.telephone = telephone;
         this.statut = statut;
         this.adresse = adresse;
+        this.commercantCode = commercantCode;
+        this.ville = ville;
     }
 
     public String getCode() {
@@ -134,7 +138,7 @@ public class KtPointDeVente implements Serializable {
         this.adresse = adresse;
     }
 
-    @XmlTransient
+   /* @XmlTransient
     public List<KtProduit> getKtProduitList() {
         return ktProduitList;
     }
@@ -150,7 +154,7 @@ public class KtPointDeVente implements Serializable {
 
     public void setUfTerminalList(List<UfTerminal> ufTerminalList) {
         this.ufTerminalList = ufTerminalList;
-    }
+    }*/
 
     public KtCommercant getCommercantCode() {
         return commercantCode;
