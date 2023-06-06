@@ -16,7 +16,7 @@ import org.springframework.data.repository.query.Param;
  * @author user
  */
 public interface KtCommercantRepository extends JpaRepository<KtCommercant,String> {
-        @Query("select c from KtCommercant c where c.nom like :x")
+        @Query("select c from KtCommercant c where c.raisonSociale like :x")
 	public Page<KtCommercant> findCommercant(@Param("x") String mc, Pageable pageable);
         
         @Query("select c from KtCommercant c where c.code=:x")
