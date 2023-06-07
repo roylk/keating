@@ -178,5 +178,11 @@ public class CommercantServiceImpl implements ICommercantService {
     public boolean searchExistTerm(String code) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public boolean searchExistsPv(String code) {
+        return pointDeVenteRepository.existsById(code);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
       
 }

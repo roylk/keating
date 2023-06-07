@@ -62,6 +62,7 @@ public interface ICommercantService {
     public Reponse getAllTerminal();
     
     public boolean searchExistsCom(String code);
+    public boolean searchExistsPv(String code);
     public boolean searchExistTerm(String code);
     
     
