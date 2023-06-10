@@ -42,9 +42,11 @@ public class KtCategorieProduit extends AuditModel implements Serializable {
     private String libelle;
     @Column(name = "description", length = 45)
     private String description;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categorieProduit")
     private List<KtSousCategorieProduit> ktSousCategorieProduitList;
-
+    
+    
     public KtCategorieProduit() {
         super();
     }

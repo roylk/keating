@@ -49,6 +49,8 @@ public class KtSousCategorieProduit extends AuditModel implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sousCategorieProduit")
     private List<KtProduit> ktProduitList;
+    
+    
 
     public KtSousCategorieProduit() {
         super();

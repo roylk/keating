@@ -68,7 +68,7 @@ public class KtProduit extends AuditModel implements Serializable {
     @JoinColumn(name = "point_de_vente", referencedColumnName = "code", nullable = false)
     @ManyToOne(optional = false)
     private KtPointDeVente pointDeVente;
-
+    
     public KtProduit() {
         super();
     }
