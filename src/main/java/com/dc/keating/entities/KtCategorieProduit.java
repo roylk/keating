@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "KtCategorieProduit.findByCode", query = "SELECT k FROM KtCategorieProduit k WHERE k.code = :code"),
     @NamedQuery(name = "KtCategorieProduit.findByLibelle", query = "SELECT k FROM KtCategorieProduit k WHERE k.libelle = :libelle"),
     @NamedQuery(name = "KtCategorieProduit.findByDescription", query = "SELECT k FROM KtCategorieProduit k WHERE k.description = :description")})
-public class KtCategorieProduit implements Serializable {
+public class KtCategorieProduit extends AuditModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,6 +46,7 @@ public class KtCategorieProduit implements Serializable {
     private List<KtSousCategorieProduit> ktSousCategorieProduitList;
 
     public KtCategorieProduit() {
+        super();
     }
 
     public KtCategorieProduit(String code) {
@@ -53,6 +54,7 @@ public class KtCategorieProduit implements Serializable {
     }
 
     public KtCategorieProduit(String code, String libelle) {
+        super();
         this.code = code;
         this.libelle = libelle;
     }

@@ -12,8 +12,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@EnableJpaAuditing // Enabling JPA Auditing
 public class KeatingApplication implements CommandLineRunner{
     @Autowired
     private KtPaysRepository paysRepository;

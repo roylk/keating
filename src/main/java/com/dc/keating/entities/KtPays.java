@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "KtPays.findByCode", query = "SELECT k FROM KtPays k WHERE k.code = :code"),
     @NamedQuery(name = "KtPays.findByNom", query = "SELECT k FROM KtPays k WHERE k.nom = :nom"),
     @NamedQuery(name = "KtPays.findByDateCreation", query = "SELECT k FROM KtPays k WHERE k.dateCreation = :dateCreation")})
-public class KtPays implements Serializable {
+public class KtPays extends AuditModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,9 +45,9 @@ public class KtPays implements Serializable {
     @Basic(optional = false)
     @Column(name = "nom", nullable = false, length = 45)
     private String nom;
-    @Column(name = "date_creation")
+    /*@Column(name = "date_creation")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreation;
+    private Date dateCreation;*/
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "pays")
     private List<KtRegion> ktRegionList;*/
 
@@ -59,15 +59,16 @@ public class KtPays implements Serializable {
     }
 
     public KtPays(String code, String nom) {
+        super();
         this.code = code;
         this.nom = nom;
     }
     
-     public KtPays(String code, String nom, Date dateCreation) {
+     /*public KtPays(String code, String nom, Date dateCreation) {
         this.code = code;
         this.nom = nom;
-        this.dateCreation = dateCreation;
-    }
+        //this.dateCreation = dateCreation;
+    }*/
 
     public String getCode() {
         return code;
@@ -85,13 +86,13 @@ public class KtPays implements Serializable {
         this.nom = nom;
     }
 
-    public Date getDateCreation() {
+    /*public Date getDateCreation() {
         return dateCreation;
     }
 
     public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
-    }
+    }*/
 
    /* @XmlTransient
     public List<KtRegion> getKtRegionList() {

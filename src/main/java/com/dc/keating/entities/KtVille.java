@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "KtVille.findById", query = "SELECT k FROM KtVille k WHERE k.id = :id"),
     @NamedQuery(name = "KtVille.findByCode", query = "SELECT k FROM KtVille k WHERE k.code = :code"),
     @NamedQuery(name = "KtVille.findByDateCreation", query = "SELECT k FROM KtVille k WHERE k.dateCreation = :dateCreation")})
-public class KtVille implements Serializable {
+public class KtVille extends AuditModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,9 +52,9 @@ public class KtVille implements Serializable {
     private String code;
     @Column(name = "nom", nullable = false, length = 30)
     private String nom;
-    @Column(name = "date_creation")
+    /*@Column(name = "date_creation")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreation;
+    private Date dateCreation;*/
     @JoinColumn(name = "region", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private KtRegion region;
@@ -79,11 +79,12 @@ public class KtVille implements Serializable {
         this.code = code;
     }
     
-     public KtVille(String code,String nom, Date dateCreation, KtRegion region) {
+     public KtVille(String code,String nom, KtRegion region) {
+         super();
         //this.id = id;
         this.code = code;
         this.nom = nom;
-        this.dateCreation = dateCreation;
+        //this.dateCreation = dateCreation;
         this.region = region;
     }
 
@@ -111,13 +112,13 @@ public class KtVille implements Serializable {
         this.code = code;
     }
 
-    public Date getDateCreation() {
+    /*public Date getDateCreation() {
         return dateCreation;
     }
 
     public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
-    }
+    }*/
 
     public KtRegion getRegion() {
         return region;

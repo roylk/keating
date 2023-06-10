@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "KtProduit.findByVolumeUnitaire", query = "SELECT k FROM KtProduit k WHERE k.volumeUnitaire = :volumeUnitaire"),
     @NamedQuery(name = "KtProduit.findByPoidsUnitaire", query = "SELECT k FROM KtProduit k WHERE k.poidsUnitaire = :poidsUnitaire"),
     @NamedQuery(name = "KtProduit.findByQuantite", query = "SELECT k FROM KtProduit k WHERE k.quantite = :quantite")})
-public class KtProduit implements Serializable {
+public class KtProduit extends AuditModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,11 +60,17 @@ public class KtProduit implements Serializable {
     private Double poidsUnitaire;
     @Column(name = "quantite", precision = 22, scale = 0)
     private Double quantite;
+
+    @JoinColumn(name = "sous_categorie_produit", referencedColumnName = "code", nullable = false)
+    @ManyToOne(optional = false)
+    private KtSousCategorieProduit sousCategorieProduit;
+    
     @JoinColumn(name = "point_de_vente", referencedColumnName = "code", nullable = false)
     @ManyToOne(optional = false)
     private KtPointDeVente pointDeVente;
 
     public KtProduit() {
+        super();
     }
 
     public KtProduit(String code) {
@@ -142,6 +148,15 @@ public class KtProduit implements Serializable {
     public void setPointDeVente(KtPointDeVente pointDeVente) {
         this.pointDeVente = pointDeVente;
     }
+    
+     public KtSousCategorieProduit getSousCategorieProduit() {
+        return sousCategorieProduit;
+    }
+
+    public void setSousCategorieProduit(KtSousCategorieProduit sousCategorieProduit) {
+        this.sousCategorieProduit = sousCategorieProduit;
+    }
+    
 
     @Override
     public int hashCode() {

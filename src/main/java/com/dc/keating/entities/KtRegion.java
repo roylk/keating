@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "KtRegion.findById", query = "SELECT k FROM KtRegion k WHERE k.id = :id"),
     @NamedQuery(name = "KtRegion.findByNom", query = "SELECT k FROM KtRegion k WHERE k.nom = :nom"),
     @NamedQuery(name = "KtRegion.findByDateCreation", query = "SELECT k FROM KtRegion k WHERE k.dateCreation = :dateCreation")})
-public class KtRegion implements Serializable {
+public class KtRegion extends AuditModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,9 +52,9 @@ public class KtRegion implements Serializable {
     @Basic(optional = false)
     @Column(name = "nom", nullable = false, length = 45)
     private String nom;
-    @Column(name = "date_creation")
+    /*@Column(name = "date_creation")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreation;
+    private Date dateCreation;*/
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "region")
     private List<KtVille> ktVilleList;*/
     @JoinColumn(name = "pays", referencedColumnName = "code", nullable = false)
@@ -69,11 +69,12 @@ public class KtRegion implements Serializable {
         this.id = id;
     }*/
 
-    public KtRegion(String code,String nom,Date dateCreation, KtPays pays) {
+    public KtRegion(String code,String nom, KtPays pays) {
+        super();
         //this.id = id;
         this.code = code;
         this.nom = nom;
-        this.dateCreation = dateCreation;
+        //this.dateCreation = dateCreation;
         this.pays = pays;
     }
 
@@ -101,13 +102,13 @@ public class KtRegion implements Serializable {
         this.nom = nom;
     }
 
-    public Date getDateCreation() {
+   /* public Date getDateCreation() {
         return dateCreation;
     }
 
     public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
-    }
+    }*/
 
    /* @XmlTransient
     public List<KtVille> getKtVilleList() {
