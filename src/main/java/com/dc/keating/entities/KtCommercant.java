@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "KtCommercant.findByTelephone", query = "SELECT k FROM KtCommercant k WHERE k.telephone = :telephone"),
     @NamedQuery(name = "KtCommercant.findByEmail", query = "SELECT k FROM KtCommercant k WHERE k.email = :email"),
     @NamedQuery(name = "KtCommercant.findByAdresse", query = "SELECT k FROM KtCommercant k WHERE k.adresse = :adresse")})
-public class KtCommercant implements Serializable {
+public class KtCommercant extends AuditModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -72,6 +72,7 @@ public class KtCommercant implements Serializable {
     }
 
     public KtCommercant(String code, String raisonSociale, String telephone, String email) {
+        super();
         this.code = code;
         this.raisonSociale = raisonSociale;
         this.telephone = telephone;

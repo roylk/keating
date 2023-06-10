@@ -48,8 +48,18 @@ public class KtCategorieProduit extends AuditModel implements Serializable {
     
     
     public KtCategorieProduit() {
-        super();
+       
     }
+
+    public KtCategorieProduit(String code, String libelle, String description) {
+        super();
+        this.code = code;
+        this.libelle = libelle;
+        this.description = description;
+       
+    }
+    
+    
 
     public KtCategorieProduit(String code) {
         this.code = code;

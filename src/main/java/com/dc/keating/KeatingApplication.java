@@ -33,10 +33,12 @@ public class KeatingApplication implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        /* KtPays p1= paysRepository.save(new KtPays("CMR", "CAMEROUN", new Date()));
-         KtRegion r2 =regionRepository.save(new KtRegion("CTR", "CENTRE", new Date(), p1));
+         KtPays p1= paysRepository.save(new KtPays("CMR", "CAMEROUN"));
+         KtRegion r2 =regionRepository.save(new KtRegion("CTR", "CENTRE", p1));
+         KtRegion r1 =regionRepository.save(new KtRegion("SU", "SUD", p1));
                 
-         KtVille v1=villeRepository.save(new KtVille("YDE","YAOUNDE", new Date(), r2)); 
+         KtVille v1=villeRepository.save(new KtVille("YDE","YAOUNDE", r2)); 
+         KtVille v2=villeRepository.save(new KtVille("EBW","EBOLOWA", r1)); 
                 
          // KtVille v2=villeRepository.save(new UfVille("YDE", "YAOUNDE", new Date(), r2));µ*/
     }
