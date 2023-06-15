@@ -271,11 +271,11 @@ public class RegionalisationRestController {
     
     @ApiOperation("Liste des villes par region")
     @GetMapping(value = "/villeparregion", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Reponse getAllVilleByPays(String codeR) {
+    public Reponse getAllVilleByRegion(Integer codeR) {
         Reponse rep;
         try {
-            List<KtRegion> listVparR = regionalisationService.getAllRegionByPays(codeR);
-            rep = new Reponse(1, "régions par pays", listVparR);
+            List<KtVille> listVparR = regionalisationService.getAllVilleByRegion(codeR);
+            rep = new Reponse(1, "Villes  par Region", listVparR);
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);
         }
