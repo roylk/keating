@@ -281,5 +281,48 @@ public class RegionalisationRestController {
         }
         return rep;
     }
+    
+    
+    @ApiOperation("Obtenir un pays par code")
+    @GetMapping(value = "/payss/{code}")
+    public Reponse getOnePays(@PathVariable("code") String code) {
+        Reponse rep;
+        try {
+            KtPays p = regionalisationService.getOnePays(code);
+            rep = new Reponse(1, "réussi", p);
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+        }
+
+        return rep;
+    }
+    
+    @ApiOperation("Obtenir une région")
+    @GetMapping(value = "/regions/{id}")
+    public Reponse getOneRegion(@PathVariable("id") Integer id) {
+        Reponse rep;
+        try {
+            KtRegion r = regionalisationService.getOneRegion(id);
+            rep = new Reponse(1, "réussi", r);
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+        }
+
+        return rep;
+    }
+    
+    @ApiOperation("Obtenir une ville")
+    @GetMapping(value = "/villes/{id}")
+    public Reponse getOneVille(@PathVariable("id") Integer id) {
+        Reponse rep;
+        try {
+            KtVille v = regionalisationService.getOneVille(id);
+            rep = new Reponse(1, "réussi", v);
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+        }
+
+        return rep;
+    }
 
 }

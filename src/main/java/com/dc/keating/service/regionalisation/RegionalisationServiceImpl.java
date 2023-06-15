@@ -152,7 +152,7 @@ public class RegionalisationServiceImpl implements IRegionalisationService{
     @Override
     public void deleteVille(Integer id) {
         villeRepository.deleteById(id);
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
