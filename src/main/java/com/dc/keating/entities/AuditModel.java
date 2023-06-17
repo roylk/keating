@@ -4,6 +4,7 @@
  */
 package com.dc.keating.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -36,11 +37,13 @@ public abstract class AuditModel implements Serializable {
     //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_creation", nullable = false, updatable = false)
     @CreatedDate
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateCreation;
 
     //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_modification", nullable = false)
     @LastModifiedDate
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateModification;
 
    /* public Date getDateCreation() {
