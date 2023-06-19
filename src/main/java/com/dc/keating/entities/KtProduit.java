@@ -4,6 +4,7 @@
  */
 package com.dc.keating.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -22,6 +23,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -37,10 +41,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "KtProduit.findByNutriscore", query = "SELECT k FROM KtProduit k WHERE k.nutriscore = :nutriscore"),
     @NamedQuery(name = "KtProduit.findByDlc", query = "SELECT k FROM KtProduit k WHERE k.dlc = :dlc"),
     @NamedQuery(name = "KtProduit.findByDdm", query = "SELECT k FROM KtProduit k WHERE k.ddm = :ddm"),
-    @NamedQuery(name = "KtProduit.findByVolumeUnitaire", query = "SELECT k FROM KtProduit k WHERE k.volumeUnitaire = :volumeUnitaire"),
-    @NamedQuery(name = "KtProduit.findByPoidsUnitaire", query = "SELECT k FROM KtProduit k WHERE k.poidsUnitaire = :poidsUnitaire"),
-    @NamedQuery(name = "KtProduit.findByQuantite", query = "SELECT k FROM KtProduit k WHERE k.quantite = :quantite")})
+    //@NamedQuery(name = "KtProduit.findByVolumeUnitaire", query = "SELECT k FROM KtProduit k WHERE k.volumeUnitaire = :volumeUnitaire"),
+   // @NamedQuery(name = "KtProduit.findByPoidsUnitaire", query = "SELECT k FROM KtProduit k WHERE k.poidsUnitaire = :poidsUnitaire"),
+    @NamedQuery(name = "KtProduit.findByQuantiteUnitaire", query = "SELECT k FROM KtProduit k WHERE k.quantiteUnitaire = :quantiteUnitaire")})
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "NATURE_PROD", discriminatorType = DiscriminatorType.STRING, length = 6)
 public class KtProduit extends AuditModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,17 +63,27 @@ public class KtProduit extends AuditModel implements Serializable {
     private String nutriscore;
     @Column(name = "dlc")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date dlc;
     @Column(name = "ddm")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date ddm;
+     @Column(name = "packaging", precision = 22, scale = 0)
+    private Double packaging ;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "volume_unitaire", precision = 22, scale = 0)
+   /* @Column(name = "volume_unitaire", precision = 22, scale = 0)
     private Double volumeUnitaire;
     @Column(name = "poids_unitaire", precision = 22, scale = 0)
     private Double poidsUnitaire;
     @Column(name = "quantite", precision = 22, scale = 0)
-    private Double quantite;
+      private Double quantite;*/
+    @Column(name = "quantite_unitaire", precision = 22, scale = 0)
+    private Double quantiteUnitaire;
+    @Column(name = "quantite_totale", precision = 22, scale = 0)
+    private Double quantiteTotale;
+    @Column(nullable = false)
+    private short statut;
 
     @JoinColumn(name = "sous_categorie_produit", referencedColumnName = "code", nullable = false)
     @ManyToOne(optional = false)
@@ -74,7 +93,7 @@ public class KtProduit extends AuditModel implements Serializable {
     @ManyToOne(optional = false)
     private KtPointDeVente pointDeVente;
     
-    public KtProduit() {
+   /* public KtProduit() {
         super();
     }
 
@@ -160,7 +179,7 @@ public class KtProduit extends AuditModel implements Serializable {
 
     public void setSousCategorieProduit(KtSousCategorieProduit sousCategorieProduit) {
         this.sousCategorieProduit = sousCategorieProduit;
-    }
+    }*/
     
 
     @Override

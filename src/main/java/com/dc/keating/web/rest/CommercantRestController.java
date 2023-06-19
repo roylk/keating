@@ -67,10 +67,11 @@ public class CommercantRestController {
     public Reponse savePointDeVente(@RequestBody KtPointDeVente pointDeVente) {
         Reponse rep;
         if (commercantService.searchExistsPv(pointDeVente.getCode())){
-            rep = new Reponse(0,"le commercant existe déjà",null);
+            rep = new Reponse(0,"le point de vente existe deja",null);
         }else{
             try {
                 pointDeVente.setVille(regionalisationService.getOneVille(pointDeVente.getVille().getId()));
+                pointDeVente.setCommercantCode(commercantService.searchCommercant(pointDeVente.getCommercantCode().getCode()));
                 KtPointDeVente p = commercantService.savePointDeVente(pointDeVente);
                 rep = new Reponse(1, "commercant  enregistré(e)  avec succes", p);
 
