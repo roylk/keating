@@ -135,7 +135,7 @@ public class CommercantRestController {
     public Reponse deletePointDeVente(@PathVariable("code") String code) {
         Reponse rep;
         try {
-            commercantService.deleteCommercant(code);
+            commercantService.deletePointsDeVente(code);
             rep = new Reponse(1, "suppression réussie", null);
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);
