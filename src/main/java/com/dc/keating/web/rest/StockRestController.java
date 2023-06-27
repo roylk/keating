@@ -90,8 +90,8 @@ public class StockRestController {
     @PostMapping(value = "/produit", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveProduit(@RequestBody KtProduit produit) {
         Reponse rep = null;
-        //KtProduit p;
-        //p = null;
+        KtProduit p;
+        p = null;
         if (stockService.searchExistProduit(produit.getCode())){
             rep = new Reponse(0,"le produit existe déjà",null);
         }else{
@@ -104,11 +104,11 @@ public class StockRestController {
                     KtProduitSolide produitSolide = (KtProduitSolide)produit;
                     double poidsTotal = produitSolide.getPoidsUnitaire()*quantiteTotale;
                      produitSolide.setPoidsTotal(poidsTotal);
-                     //p = produitSolide;
+                     //KtProduit p = produitSolide;
                      //System.out.println("produit solide :" +p);
-                     KtProduit ps = stockService.saveProduit(produitSolide);
-                     rep = new Reponse(1, "produit enregistré solide", ps);
-                     return rep;
+                     p = stockService.saveProduit(produitSolide);
+                     //rep = new Reponse(1, "produit enregistré solide", p);
+                     //return rep;
                 }
                 else if (produit instanceof KtProduitLiquide){
                     KtProduitLiquide produitLiquide =(KtProduitLiquide)produit;
@@ -116,13 +116,13 @@ public class StockRestController {
                     produitLiquide.setVolumeTotal(volumeTotal);
                     //p = produitLiquide;
                     //System.out.println("produit liquide: " +p);
-                     KtProduit pl = stockService.saveProduit(produitLiquide);
-                     rep = new Reponse(1, "produit liquide enregistré avec succes", pl);
-                     return rep;
+                     p = stockService.saveProduit(produitLiquide);
+                     //rep = new Reponse(1, "produit liquide enregistré avec succes", p);
+                     //return rep;
                 }
                 //KtProduit p= stockService.saveProduit(produit);
                 //System.out.println(p);
-               //rep = new Reponse(1, "produit enregistrée avec succes", p);
+               rep = new Reponse(1, "produit enregistrée avec succes", p);
 
             } catch (Exception e) {
                 rep = new Reponse(0, e.getMessage(), null);
