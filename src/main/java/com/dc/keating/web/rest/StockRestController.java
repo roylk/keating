@@ -118,7 +118,7 @@ public class StockRestController {
         Reponse rep;
         try {
             sCatProduit.setCode(code);
-            KtSousCategorieProduit scp = stockService.saveSousCategorieProduit(sCatProduit);
+            KtSousCategorieProduit scp = stockService.updateSousCategorieProduit(sCatProduit);
             rep = new Reponse(1, "mis à jour avec succes", scp);
 
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class StockRestController {
         Reponse rep;
         try {
             catProduit.setCode(code);
-            KtCategorieProduit scp = stockService.saveCategorieProduit(catProduit);
+            KtCategorieProduit scp = stockService.updateCategorieProduit(catProduit);
             rep = new Reponse(1, "mis à jour avec succes", scp);
 
         } catch (Exception e) {
