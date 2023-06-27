@@ -108,6 +108,7 @@ public class StockRestController {
                      //System.out.println("produit solide :" +p);
                      KtProduit ps = stockService.saveProduit(produitSolide);
                      rep = new Reponse(1, "produit enregistré solide", ps);
+                     return rep;
                 }
                 else if (produit instanceof KtProduitLiquide){
                     KtProduitLiquide produitLiquide =(KtProduitLiquide)produit;
@@ -117,6 +118,7 @@ public class StockRestController {
                     //System.out.println("produit liquide: " +p);
                      KtProduit pl = stockService.saveProduit(produitLiquide);
                      rep = new Reponse(1, "produit liquide enregistré avec succes", pl);
+                     return rep;
                 }
                 //KtProduit p= stockService.saveProduit(produit);
                 //System.out.println(p);
