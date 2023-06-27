@@ -106,8 +106,8 @@ public class StockRestController {
                      produitSolide.setPoidsTotal(poidsTotal);
                      //p = produitSolide;
                      //System.out.println("produit solide :" +p);
-                     KtProduit p = stockService.saveProduit(produitSolide);
-                     rep = new Reponse(1, "produit enregistré solide", p);
+                     KtProduit ps = stockService.saveProduit(produitSolide);
+                     rep = new Reponse(1, "produit enregistré solide", ps);
                 }
                 else if (produit instanceof KtProduitLiquide){
                     KtProduitLiquide produitLiquide =(KtProduitLiquide)produit;
@@ -115,12 +115,12 @@ public class StockRestController {
                     produitLiquide.setVolumeTotal(volumeTotal);
                     //p = produitLiquide;
                     //System.out.println("produit liquide: " +p);
-                     KtProduit p = stockService.saveProduit(produitLiquide);
-                     rep = new Reponse(1, "produit liquide enregistré avec succes", p);
+                     KtProduit pl = stockService.saveProduit(produitLiquide);
+                     rep = new Reponse(1, "produit liquide enregistré avec succes", pl);
                 }
                 //KtProduit p= stockService.saveProduit(produit);
                 //System.out.println(p);
-                //rep = new Reponse(1, "produit enregistrée avec succes", p);
+               //rep = new Reponse(1, "produit enregistrée avec succes", p);
 
             } catch (Exception e) {
                 rep = new Reponse(0, e.getMessage(), null);
