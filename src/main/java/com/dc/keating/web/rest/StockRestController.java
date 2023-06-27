@@ -129,7 +129,7 @@ public class StockRestController {
     }
     
     @ApiOperation("Mettre à jour une catégorie de produit")
-    @PutMapping(value = "/souscategories/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/categories/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse updateCategorieProduit(@RequestBody KtCategorieProduit catProduit, @PathVariable("code") String code) {
         Reponse rep;
         try {
