@@ -90,7 +90,7 @@ public class StockRestController {
     @PostMapping(value = "/produit", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveProduit(@RequestBody KtProduit produit) {
         Reponse rep;
-        KtProduit p = null;
+        //KtProduit p ;
         if (stockService.searchExistProduit(produit.getCode())){
             rep = new Reponse(0,"le produit existe déjà",null);
         }else{
@@ -103,17 +103,17 @@ public class StockRestController {
                     KtProduitSolide produitSolide = (KtProduitSolide)produit;
                     double poidsTotal = produitSolide.getPoidsUnitaire()*quantiteTotale;
                      produitSolide.setPoidsTotal(poidsTotal);
-                     p = produitSolide;
+                     //p = produitSolide;
                      //System.out.println("produit solide :" +p);
                 }
                 else if (produit instanceof KtProduitLiquide){
                     KtProduitLiquide produitLiquide =(KtProduitLiquide)produit;
                     double volumeTotal = produitLiquide.getVolumeUnitaire()*quantiteTotale;
                     produitLiquide.setVolumeTotal(volumeTotal);
-                    p = produitLiquide;
+                    //p = produitLiquide;
                     //System.out.println("produit liquide: " +p);
                 }
-                p = stockService.saveProduit(p);
+                KtProduit p= stockService.saveProduit(produit);
                 //System.out.println(p);
                 rep = new Reponse(1, "produit enregistrée avec succes", p);
 
