@@ -189,7 +189,7 @@ public class StockRestController {
     public Reponse getAllSousCategorie() {
         Reponse rep;
         try {
-            rep = stockService.getAllCategorieProduit();
+            rep = stockService.getAllSousCategorieProduit();
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);
         }
