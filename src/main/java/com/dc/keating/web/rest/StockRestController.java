@@ -211,8 +211,8 @@ public class StockRestController {
     }
     
     @ApiOperation("Liste des catégories de produit")
-    @GetMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Reponse getAllCategorie() {
+    @GetMapping(value = "/categorieproduits", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllCategorieProduits() {
         Reponse rep;
         try {
             rep = stockService.getAllCategorieProduit();
