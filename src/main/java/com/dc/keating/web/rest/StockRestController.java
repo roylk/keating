@@ -107,6 +107,7 @@ public class StockRestController {
                      //KtProduit p = produitSolide;
                      //System.out.println("produit solide :" +p);
                      p = stockService.saveProduit(produitSolide);
+                     System.out.println(p);
                      //rep = new Reponse(1, "produit enregistré solide", p);
                      //return rep;
                 }
@@ -117,6 +118,7 @@ public class StockRestController {
                     //p = produitLiquide;
                     //System.out.println("produit liquide: " +p);
                      p = stockService.saveProduit(produitLiquide);
+                     System.out.println(p);
                      //rep = new Reponse(1, "produit liquide enregistré avec succes", p);
                      //return rep;
                 }
