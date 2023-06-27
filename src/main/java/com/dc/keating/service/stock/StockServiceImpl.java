@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StockServiceImpl implements IStockService{
     
     @Autowired
-    KtSousCategorieProduitRepository sCatProduitRepository;
+    KtSousCategorieProduitRepository sousCatProduitRepository;
     
     @Autowired
     KtCategorieProduitRepository catProduitRepository;
@@ -40,13 +40,13 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public List<KtSousCategorieProduit> listeSousCategorieProduit() {
-        return sCatProduitRepository.findAll();
+        return sousCatProduitRepository.findAll();
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Reponse listeSousCategorieProduit(Pageable pageable) {
-        return new Reponse(1, "liste sous catégories des produits", sCatProduitRepository.findAll(pageable));
+        return new Reponse(1, "liste sous catégories des produits",sousCatProduitRepository.findAll());
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -75,8 +75,8 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public KtSousCategorieProduit saveSousCategorieProduit(KtSousCategorieProduit sCatProduit) {
-        return sCatProduitRepository.save(sCatProduit);
+    public KtSousCategorieProduit saveSousCategorieProduit(KtSousCategorieProduit sousCatProduit) {
+        return sousCatProduitRepository.save(sousCatProduit);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -95,7 +95,7 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public KtSousCategorieProduit searchSousCategorieProduit(String code) {
-        return sCatProduitRepository.findbyId(code);
+        return sousCatProduitRepository.findbyId(code);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -113,12 +113,14 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public Page<KtSousCategorieProduit> SearchSousCategories(String mc, Pageable pageable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return sousCatProduitRepository.findSousCategorieProduit(mc, pageable);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Page<KtCategorieProduit> SearchCategories(String mc, Pageable pageable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return catProduitRepository.findCategorieProduit(mc, pageable);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -127,8 +129,8 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public KtSousCategorieProduit updateSousCategorieProduit(KtSousCategorieProduit sCatProduit) {
-        return sCatProduitRepository.saveAndFlush(sCatProduit);
+    public KtSousCategorieProduit updateSousCategorieProduit(KtSousCategorieProduit sousCatProduit) {
+        return sousCatProduitRepository.saveAndFlush(sousCatProduit);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -146,7 +148,7 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public void deleteSousCategorieProduit(String code) {
-        sCatProduitRepository.deleteById(code);
+        sousCatProduitRepository.deleteById(code);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -164,7 +166,7 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public Reponse getAllSousCategorieProduit() {
-        return new Reponse(1, "liste des sous catégories ", sCatProduitRepository.findAll());
+        return new Reponse(1, "liste des sous catégories ", sousCatProduitRepository.findAll());
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -182,7 +184,7 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public boolean searchExistsScatProduit(String code) {
-        return sCatProduitRepository.existsById(code);
+        return sousCatProduitRepository.existsById(code);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
