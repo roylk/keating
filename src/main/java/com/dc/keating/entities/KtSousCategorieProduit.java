@@ -47,8 +47,8 @@ public class KtSousCategorieProduit extends AuditModel implements Serializable {
     @ManyToOne(optional = false)
     private KtCategorieProduit categorieProduit;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sousCategorieProduit")
-    private List<KtProduit> ktProduitList;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "sousCategorieProduit")
+    private List<KtProduit> ktProduitList;*/
     
     
 
@@ -92,14 +92,14 @@ public class KtSousCategorieProduit extends AuditModel implements Serializable {
         this.categorieProduit = categorieProduit;
     }
 
-    @XmlTransient
+   /* @XmlTransient
     public List<KtProduit> getKtProduitList() {
         return ktProduitList;
     }
 
     public void setKtProduitList(List<KtProduit> ktProduitList) {
         this.ktProduitList = ktProduitList;
-    }
+    }*/
     
     
 

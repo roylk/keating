@@ -43,8 +43,8 @@ public class KtCategorieProduit extends AuditModel implements Serializable {
     @Column(name = "description", length = 45)
     private String description;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categorieProduit")
-    private List<KtSousCategorieProduit> ktSousCategorieProduitList;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "categorieProduit")
+    private List<KtSousCategorieProduit> ktSousCategorieProduitList;*/
     
     
     public KtCategorieProduit() {
@@ -95,14 +95,14 @@ public class KtCategorieProduit extends AuditModel implements Serializable {
         this.description = description;
     }
 
-    @XmlTransient
+   /* @XmlTransient
     public List<KtSousCategorieProduit> getKtSousCategorieProduitList() {
         return ktSousCategorieProduitList;
     }
 
     public void setKtSousCategorieProduitList(List<KtSousCategorieProduit> ktSousCategorieProduitList) {
         this.ktSousCategorieProduitList = ktSousCategorieProduitList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
