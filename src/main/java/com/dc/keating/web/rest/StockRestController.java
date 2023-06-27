@@ -89,8 +89,8 @@ public class StockRestController {
     @ApiOperation("Créer un produit ")
     @PostMapping(value = "/produit", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveProduit(@RequestBody KtProduit produit) {
-        Reponse rep = null;
-        KtProduit p = null;
+        Reponse rep;
+        KtProduit p;
         if (stockService.searchExistProduit(produit.getCode())){
             rep = new Reponse(0,"le produit existe déjà",null);
         }else{
@@ -113,9 +113,9 @@ public class StockRestController {
                     p = produitLiquide;
                     System.out.println("produit liquide: " +p);
                 }
-                p = stockService.saveProduit(p);
-                System.out.println(p);
-                rep = new Reponse(1, "produit enregistrée avec succes", p);
+                //p = stockService.saveProduit(p);
+                //System.out.println(p);
+                rep = new Reponse(1, "produit enregistrée avec succes", null);
 
             } catch (Exception e) {
                 rep = new Reponse(0, e.getMessage(), null);
