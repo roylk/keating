@@ -7,6 +7,7 @@ package com.dc.keating.web.rest;
 import com.dc.keating.config.Reponse;
 import com.dc.keating.entities.KtCategorieProduit;
 import com.dc.keating.entities.KtProduit;
+import com.dc.keating.entities.KtProduitLiquide;
 import com.dc.keating.entities.KtProduitSolide;
 import com.dc.keating.entities.KtSousCategorieProduit;
 import com.dc.keating.service.commercant.ICommercantService;
@@ -85,10 +86,11 @@ public class StockRestController {
         return rep;
     }
     
-   /* @ApiOperation("Créer un produit ")
+    @ApiOperation("Créer un produit ")
     @PostMapping(value = "/produit", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveProduit(@RequestBody KtProduit produit) {
-        Reponse rep;
+        Reponse rep = null;
+        KtProduit p = null;
         if (stockService.searchExistProduit(produit.getCode())){
             rep = new Reponse(0,"le produit existe déjà",null);
         }else{
@@ -98,19 +100,29 @@ public class StockRestController {
                 double quantiteTotale = produit.getPackaging()*produit.getQuantiteUnitaire();
                 produit.setQuantiteTotale(quantiteTotale);
                 if (produit instanceof KtProduitSolide ){
-                    KtProduitSolide produitSolide= (KtProduitSolide)produit;
+                    KtProduitSolide produitSolide = (KtProduitSolide)produit;
                     double poidsTotal = produitSolide.getPoidsUnitaire()*quantiteTotale;
-                    
+                     produitSolide.setPoidsTotal(poidsTotal);
+                     p = produitSolide;
+                     System.out.println("produit solide :" +p);
                 }
-                //tSousCategorieProduit scp = stockService.saveSousCategorieProduit(sCatProduit);
-                //rep = new Reponse(1, "sous catégorie enregistrée avec succes", scp);
+                else if (produit instanceof KtProduitLiquide){
+                    KtProduitLiquide produitLiquide =(KtProduitLiquide)produit;
+                    double volumeTotal = produitLiquide.getVolumeUnitaire()*quantiteTotale;
+                    produitLiquide.setVolumeTotal(volumeTotal);
+                    p = produitLiquide;
+                    System.out.println("produit liquide: " +p);
+                }
+                p = stockService.saveProduit(p);
+                System.out.println(p);
+                rep = new Reponse(1, "produit enregistrée avec succes", p);
 
             } catch (Exception e) {
                 rep = new Reponse(0, e.getMessage(), null);
             }
         }
-         return rep;
-    }*/
+        return rep;
+    }
     
     @ApiOperation("Mettre à jour une sous catégorie de produit")
     @PutMapping(value = "/souscategories/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
