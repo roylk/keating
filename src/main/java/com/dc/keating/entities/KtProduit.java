@@ -6,6 +6,7 @@ package com.dc.keating.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -62,13 +63,13 @@ public class KtProduit extends AuditModel implements Serializable {
     @Column(name = "nutriscore", length = 4)
     private String nutriscore;
     @Column(name = "dlc")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private Date dlc;
+    private LocalDateTime dlc;
     @Column(name = "ddm")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private Date ddm;
+    private LocalDateTime ddm;
      @Column(name = "packaging", precision = 22, scale = 0)
     private Double packaging ;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
