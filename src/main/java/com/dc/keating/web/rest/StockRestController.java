@@ -148,7 +148,9 @@ public Reponse saveProduit(@RequestBody KtProduit produit) {
 
             if (produit instanceof KtProduitSolide) {
                 KtProduitSolide produitSolide = (KtProduitSolide) produit;
-                double poidsTotal = produitSolide.getPoidsUnitaire() * quantiteTotale;
+                produitSolide.setSousCategorieProduit(stockService.searchSousCategorieProduit(produit.getSousCategorieProduit().getCode()));
+                produitSolide.setPointDeVente(commercantService.searchPointDeVente(produit.getPointDeVente().getCode()));
+                double poidsTotal = produitSolide.getPackaging()*quantiteTotale;
                 produitSolide.setPoidsTotal(poidsTotal);
                 KtProduitSolide savedProduit = stockService.saveProduit(produitSolide);
                 rep = new Reponse(1, "Produit solide enregistré avec succès", savedProduit);
