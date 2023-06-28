@@ -55,7 +55,7 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public Reponse listeSousCategorieProduit(Pageable pageable) {
-        return new Reponse(1, "liste sous catégories des produits",sousCatProduitRepository.findAll());
+        return new Reponse(1, "liste sous catégories des produits",sousCatProduitRepository.findAll(pageable));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -211,13 +211,13 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public KtProduitSolide saveProduit(KtProduitSolide produit) {
-        return produitSolideRepository.save(produit);
+        return produitRepository.save(produit);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public KtProduitLiquide saveProduit(KtProduitLiquide produit) {
-        return produitLiquideRepository.save(produit);
+        return produitRepository.save(produit);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
