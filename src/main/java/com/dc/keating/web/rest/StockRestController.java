@@ -146,20 +146,20 @@ public Reponse saveProduit(@RequestBody KtProduit produit) {
             double quantiteTotale = produit.getPackaging() * produit.getQuantiteUnitaire();
             produit.setQuantiteTotale(quantiteTotale);
 
-            if (produit instanceof KtProduitSolide) {
-                KtProduitSolide produitSolide = (KtProduitSolide) produit;
-                produitSolide.setSousCategorieProduit(stockService.searchSousCategorieProduit(produit.getSousCategorieProduit().getCode()));
-                produitSolide.setPointDeVente(commercantService.searchPointDeVente(produit.getPointDeVente().getCode()));
-                double poidsTotal = produitSolide.getPackaging()*quantiteTotale;
-                produitSolide.setPoidsTotal(poidsTotal);
-                KtProduitSolide savedProduit = stockService.saveProduit(produitSolide);
-                rep = new Reponse(1, "Produit solide enregistré avec succès", savedProduit);
-            } else if (produit instanceof KtProduitLiquide) {
-                KtProduitLiquide produitLiquide = (KtProduitLiquide) produit;
-                double volumeTotal = produitLiquide.getVolumeUnitaire() * quantiteTotale;
-                produitLiquide.setVolumeTotal(volumeTotal);
-                KtProduitLiquide savedProduit = stockService.saveProduit(produitLiquide);
-                rep = new Reponse(1, "Produit liquide enregistré avec succès", savedProduit);
+            if (produit instanceof KtProduitSolide || produit instanceof KtProduitLiquide) {
+                if (produit instanceof KtProduitSolide) {
+                    KtProduitSolide produitSolide = (KtProduitSolide) produit;
+                    double poidsTotal = produitSolide.getPoidsUnitaire() * quantiteTotale;
+                    produitSolide.setPoidsTotal(poidsTotal);
+                    KtProduitSolide savedProduit = stockService.saveProduit(produitSolide);
+                    rep = new Reponse(1, "Produit solide enregistré avec succès", savedProduit);
+                } else {
+                    KtProduitLiquide produitLiquide = (KtProduitLiquide) produit;
+                    double volumeTotal = produitLiquide.getVolumeUnitaire() * quantiteTotale;
+                    produitLiquide.setVolumeTotal(volumeTotal);
+                    KtProduitLiquide savedProduit = stockService.saveProduit(produitLiquide);
+                    rep = new Reponse(1, "Produit liquide enregistré avec succès", savedProduit);
+                }
             } else {
                 // Si le produit n'est ni solide ni liquide, vous pouvez enregistrer le produit générique
                 KtProduit savedProduit = stockService.saveProduit(produit);
@@ -172,6 +172,7 @@ public Reponse saveProduit(@RequestBody KtProduit produit) {
 
     return rep;
 }
+
 
     
     @ApiOperation("Mettre à jour une sous catégorie de produit")
