@@ -86,7 +86,7 @@ public class StockRestController {
         return rep;
     }
     
-    @ApiOperation("Créer un produit ")
+   /* @ApiOperation("Créer un produit ")
     @PostMapping(value = "/produit", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveProduit(@RequestBody KtProduit produit) {
         Reponse rep = null;
@@ -131,7 +131,46 @@ public class StockRestController {
             }
         }
         return rep;
+    }*/
+    
+@ApiOperation("Créer un produit")
+@PostMapping(value = "/produit", produces = MediaType.APPLICATION_JSON_VALUE)
+public Reponse saveProduit(@RequestBody KtProduit produit) {
+    Reponse rep;
+    try {
+        if (stockService.searchExistProduit(produit.getCode())) {
+            rep = new Reponse(0, "Le produit existe déjà", null);
+        } else {
+            produit.setSousCategorieProduit(stockService.searchSousCategorieProduit(produit.getSousCategorieProduit().getCode()));
+            produit.setPointDeVente(commercantService.searchPointDeVente(produit.getPointDeVente().getCode()));
+            double quantiteTotale = produit.getPackaging() * produit.getQuantiteUnitaire();
+            produit.setQuantiteTotale(quantiteTotale);
+
+            if (produit instanceof KtProduitSolide) {
+                KtProduitSolide produitSolide = (KtProduitSolide) produit;
+                double poidsTotal = produitSolide.getPoidsUnitaire() * quantiteTotale;
+                produitSolide.setPoidsTotal(poidsTotal);
+                KtProduitSolide savedProduit = stockService.saveProduit(produitSolide);
+                rep = new Reponse(1, "Produit solide enregistré avec succès", savedProduit);
+            } else if (produit instanceof KtProduitLiquide) {
+                KtProduitLiquide produitLiquide = (KtProduitLiquide) produit;
+                double volumeTotal = produitLiquide.getVolumeUnitaire() * quantiteTotale;
+                produitLiquide.setVolumeTotal(volumeTotal);
+                KtProduitLiquide savedProduit = stockService.saveProduit(produitLiquide);
+                rep = new Reponse(1, "Produit liquide enregistré avec succès", savedProduit);
+            } else {
+                // Si le produit n'est ni solide ni liquide, vous pouvez enregistrer le produit générique
+                KtProduit savedProduit = stockService.saveProduit(produit);
+                rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
+            }
+        }
+    } catch (Exception e) {
+        rep = new Reponse(0, e.getMessage(), null);
     }
+
+    return rep;
+}
+
     
     @ApiOperation("Mettre à jour une sous catégorie de produit")
     @PutMapping(value = "/souscategories/{code}", produces = MediaType.APPLICATION_JSON_VALUE)

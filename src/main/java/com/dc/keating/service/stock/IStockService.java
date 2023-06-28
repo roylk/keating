@@ -7,6 +7,8 @@ package com.dc.keating.service.stock;
 import com.dc.keating.config.Reponse;
 import com.dc.keating.entities.KtCategorieProduit;
 import com.dc.keating.entities.KtProduit;
+import com.dc.keating.entities.KtProduitLiquide;
+import com.dc.keating.entities.KtProduitSolide;
 import com.dc.keating.entities.KtSousCategorieProduit;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -31,6 +33,8 @@ public interface IStockService {
     public KtSousCategorieProduit saveSousCategorieProduit(KtSousCategorieProduit sCatProduit);
     public KtCategorieProduit saveCategorieProduit(KtCategorieProduit catProduit);
     public KtProduit saveProduit(KtProduit produit);
+    public KtProduitSolide saveProduit(KtProduitSolide produit);
+    public KtProduitLiquide saveProduit(KtProduitLiquide produit);
    
     
     public KtSousCategorieProduit searchSousCategorieProduit(String code);

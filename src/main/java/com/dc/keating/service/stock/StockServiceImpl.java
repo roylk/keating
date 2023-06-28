@@ -10,6 +10,8 @@ import com.dc.keating.dao.KtProduitRepository;
 import com.dc.keating.dao.KtSousCategorieProduitRepository;
 import com.dc.keating.entities.KtCategorieProduit;
 import com.dc.keating.entities.KtProduit;
+import com.dc.keating.entities.KtProduitLiquide;
+import com.dc.keating.entities.KtProduitSolide;
 import com.dc.keating.entities.KtSousCategorieProduit;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,6 +200,17 @@ public class StockServiceImpl implements IStockService{
     public boolean searchExistProduit(String code) {
         return produitRepository.existsById(code);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public KtProduitSolide saveProduit(KtProduitSolide produit) {
+        return produitRepository.save(produit);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public KtProduitLiquide saveProduit(KtProduitLiquide produit) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
