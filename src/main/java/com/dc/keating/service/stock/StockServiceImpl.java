@@ -6,7 +6,9 @@ package com.dc.keating.service.stock;
 
 import com.dc.keating.config.Reponse;
 import com.dc.keating.dao.KtCategorieProduitRepository;
+import com.dc.keating.dao.KtProduitLiquideRepository;
 import com.dc.keating.dao.KtProduitRepository;
+import com.dc.keating.dao.KtProduitSolideRepository;
 import com.dc.keating.dao.KtSousCategorieProduitRepository;
 import com.dc.keating.entities.KtCategorieProduit;
 import com.dc.keating.entities.KtProduit;
@@ -37,6 +39,11 @@ public class StockServiceImpl implements IStockService{
     
     @Autowired
     KtProduitRepository produitRepository;
+    
+    @Autowired
+    KtProduitSolideRepository produitSolideRepository;
+    @Autowired
+    KtProduitLiquideRepository produitLiquideRepository;
     
     
 
@@ -204,13 +211,14 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public KtProduitSolide saveProduit(KtProduitSolide produit) {
-        return produitRepository.save(produit);
+        return produitSolideRepository.save(produit);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public KtProduitLiquide saveProduit(KtProduitLiquide produit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return produitLiquideRepository.save(produit);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
