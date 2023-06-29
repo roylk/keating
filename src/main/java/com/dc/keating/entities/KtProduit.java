@@ -51,7 +51,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "NATURE_PROD", discriminatorType = DiscriminatorType.STRING, length = 13)
+@DiscriminatorColumn(name = "NATURE_PROD", discriminatorType = DiscriminatorType.STRING, length = 6)
 public class KtProduit extends AuditModel implements Serializable {
 
     private static final long serialVersionUID = 1L;

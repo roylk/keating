@@ -135,7 +135,7 @@ public class StockRestController {
     
 @ApiOperation("Créer un produit")
 @PostMapping(value = "/produit", produces = MediaType.APPLICATION_JSON_VALUE)
-public Reponse saveProduit(@RequestBody KtProduit produit) {
+public Reponse saveProduit(@RequestBody KtProduitSolide produit) {
     Reponse rep;
     try {
         if (stockService.searchExistProduit(produit.getCode())) {
@@ -143,9 +143,12 @@ public Reponse saveProduit(@RequestBody KtProduit produit) {
         } else {
             produit.setSousCategorieProduit(stockService.searchSousCategorieProduit(produit.getSousCategorieProduit().getCode()));
             produit.setPointDeVente(commercantService.searchPointDeVente(produit.getPointDeVente().getCode()));
-            double quantiteTotale = produit.getPackaging() * produit.getQuantiteUnitaire();
+            Double quantiteTotale = produit.getPackaging() * produit.getQuantiteUnitaire();
             produit.setQuantiteTotale(quantiteTotale);
+            Double poidsTotal = produit.getPoidsUnitaire()*quantiteTotale;
+            produit.setPoidsTotal(poidsTotal);
             KtProduit savedProduit = stockService.saveProduit(produit);
+            
             rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
 
             /*if (produit instanceof KtProduitSolide || produit instanceof KtProduitLiquide) {
