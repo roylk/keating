@@ -145,8 +145,10 @@ public Reponse saveProduit(@RequestBody KtProduit produit) {
             produit.setPointDeVente(commercantService.searchPointDeVente(produit.getPointDeVente().getCode()));
             double quantiteTotale = produit.getPackaging() * produit.getQuantiteUnitaire();
             produit.setQuantiteTotale(quantiteTotale);
+            KtProduit savedProduit = stockService.saveProduit(produit);
+            rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
 
-            if (produit instanceof KtProduitSolide || produit instanceof KtProduitLiquide) {
+            /*if (produit instanceof KtProduitSolide || produit instanceof KtProduitLiquide) {
                 if (produit instanceof KtProduitSolide) {
                     KtProduitSolide produitSolide = (KtProduitSolide) produit;
                     double poidsTotal = produitSolide.getPoidsUnitaire() * quantiteTotale;
@@ -164,7 +166,7 @@ public Reponse saveProduit(@RequestBody KtProduit produit) {
                 // Si le produit n'est ni solide ni liquide, vous pouvez enregistrer le produit générique
                 KtProduit savedProduit = stockService.saveProduit(produit);
                 rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
-            }
+            }*/
         }
     } catch (Exception e) {
         rep = new Reponse(0, e.getMessage(), null);
