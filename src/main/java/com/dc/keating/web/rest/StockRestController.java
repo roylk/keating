@@ -133,8 +133,8 @@ public class StockRestController {
         return rep;
     }*/
     
-@ApiOperation("Créer un produit")
-@PostMapping(value = "/produit", produces = MediaType.APPLICATION_JSON_VALUE)
+@ApiOperation("Créer un produit solide")
+@PostMapping(value = "/produitS", produces = MediaType.APPLICATION_JSON_VALUE)
 public Reponse saveProduit(@RequestBody KtProduitSolide produit) {
     Reponse rep;
     try {
@@ -147,6 +147,51 @@ public Reponse saveProduit(@RequestBody KtProduitSolide produit) {
             produit.setQuantiteTotale(quantiteTotale);
             Double poidsTotal = produit.getPoidsUnitaire()*quantiteTotale;
             produit.setPoidsTotal(poidsTotal);
+            KtProduit savedProduit = stockService.saveProduit(produit);
+            
+            rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
+
+            /*if (produit instanceof KtProduitSolide || produit instanceof KtProduitLiquide) {
+                if (produit instanceof KtProduitSolide) {
+                    KtProduitSolide produitSolide = (KtProduitSolide) produit;
+                    double poidsTotal = produitSolide.getPoidsUnitaire() * quantiteTotale;
+                    produitSolide.setPoidsTotal(poidsTotal);
+                    KtProduitSolide savedProduit = stockService.saveProduit(produitSolide);
+                    rep = new Reponse(1, "Produit solide enregistré avec succès", savedProduit);
+                } else {
+                    KtProduitLiquide produitLiquide = (KtProduitLiquide) produit;
+                    double volumeTotal = produitLiquide.getVolumeUnitaire() * quantiteTotale;
+                    produitLiquide.setVolumeTotal(volumeTotal);
+                    KtProduitLiquide savedProduit = stockService.saveProduit(produitLiquide);
+                    rep = new Reponse(1, "Produit liquide enregistré avec succès", savedProduit);
+                }
+            } else {
+                // Si le produit n'est ni solide ni liquide, vous pouvez enregistrer le produit générique
+                KtProduit savedProduit = stockService.saveProduit(produit);
+                rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
+            }*/
+        }
+    } catch (Exception e) {
+        rep = new Reponse(0, e.getMessage(), null);
+    }
+
+    return rep;
+}
+
+@ApiOperation("Créer un produit liquide")
+@PostMapping(value = "/produitL", produces = MediaType.APPLICATION_JSON_VALUE)
+public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
+    Reponse rep;
+    try {
+        if (stockService.searchExistProduit(produit.getCode())) {
+            rep = new Reponse(0, "Le produit existe déjà", null);
+        } else {
+            produit.setSousCategorieProduit(stockService.searchSousCategorieProduit(produit.getSousCategorieProduit().getCode()));
+            produit.setPointDeVente(commercantService.searchPointDeVente(produit.getPointDeVente().getCode()));
+            Double quantiteTotale = produit.getPackaging() * produit.getQuantiteUnitaire();
+            produit.setQuantiteTotale(quantiteTotale);
+            Double volumeTotal = produit.getVolumeUnitaire()*quantiteTotale;
+            produit.setVolumeTotal(volumeTotal);
             KtProduit savedProduit = stockService.saveProduit(produit);
             
             rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
