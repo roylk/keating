@@ -28,6 +28,7 @@ public interface IStockService {
     public Reponse listeCategorieProduit(Pageable pageable);
     
     public List<KtProduit> listeProduit();
+    
     public Reponse listeProduit(Pageable pageable);
     
     public KtSousCategorieProduit saveSousCategorieProduit(KtSousCategorieProduit sCatProduit);

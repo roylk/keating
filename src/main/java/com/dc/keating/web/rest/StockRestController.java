@@ -336,5 +336,20 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
         }
         return rep;
     }
+    
+    
+    @ApiOperation("Liste des produits par page")
+    @GetMapping(value = "/pproduits", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllProduitPage(@RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.listeProduit(PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
           
 }
