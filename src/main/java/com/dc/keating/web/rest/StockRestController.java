@@ -285,6 +285,20 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
         return rep;
     } 
     
+     @ApiOperation("Supprimer un  produit")
+    @DeleteMapping(value = "/produit/{code}")
+    public Reponse deleteProduit(@PathVariable("code") String code) {
+        Reponse rep;
+        try {
+            stockService.deleteProduit(code);
+            rep = new Reponse(1, "suppression réussie", null);
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+        }
+
+        return rep;
+    } 
+    
     @ApiOperation("Liste des sous catégories de produit")
     @GetMapping(value = "/souscategories", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllSousCategorie() {
