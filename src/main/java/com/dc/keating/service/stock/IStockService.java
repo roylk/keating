@@ -30,6 +30,8 @@ public interface IStockService {
     public List<KtProduit> listeProduit();
     
     public Reponse listeProduit(Pageable pageable);
+    public Reponse listeProduitL(Pageable pageable);
+    public Reponse listeProduitS(Pageable pageable);
     
     public KtSousCategorieProduit saveSousCategorieProduit(KtSousCategorieProduit sCatProduit);
     public KtCategorieProduit saveCategorieProduit(KtCategorieProduit catProduit);

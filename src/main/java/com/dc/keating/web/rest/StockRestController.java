@@ -351,5 +351,33 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
         }
         return rep;
     }
+    
+    @ApiOperation("Liste des produits liquides par page")
+    @GetMapping(value = "/pproduitsLiq", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllProduitLPage(@RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.listeProduitL(PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
+    
+    @ApiOperation("Liste des produits solides par page")
+    @GetMapping(value = "/pproduitsSol", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllProduitSPage(@RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.listeProduitS(PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
           
 }
