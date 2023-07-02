@@ -95,6 +95,9 @@ public class KtProduit extends AuditModel implements Serializable {
     @ManyToOne(optional = false)
     private KtPointDeVente pointDeVente;
     
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "produit")
+    private List<KtOperationStock> ktOperationStockList;*/
+    
    /* public KtProduit() {
         super();
     }

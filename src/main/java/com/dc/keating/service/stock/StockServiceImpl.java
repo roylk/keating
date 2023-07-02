@@ -6,14 +6,20 @@ package com.dc.keating.service.stock;
 
 import com.dc.keating.config.Reponse;
 import com.dc.keating.dao.KtCategorieProduitRepository;
+import com.dc.keating.dao.KtEntreeStockRepository;
+import com.dc.keating.dao.KtOperationStockRepository;
 import com.dc.keating.dao.KtProduitLiquideRepository;
 import com.dc.keating.dao.KtProduitRepository;
 import com.dc.keating.dao.KtProduitSolideRepository;
+import com.dc.keating.dao.KtSortieStockRepository;
 import com.dc.keating.dao.KtSousCategorieProduitRepository;
 import com.dc.keating.entities.KtCategorieProduit;
+import com.dc.keating.entities.KtEntreeStock;
+import com.dc.keating.entities.KtOperationStock;
 import com.dc.keating.entities.KtProduit;
 import com.dc.keating.entities.KtProduitLiquide;
 import com.dc.keating.entities.KtProduitSolide;
+import com.dc.keating.entities.KtSortieStock;
 import com.dc.keating.entities.KtSousCategorieProduit;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +50,15 @@ public class StockServiceImpl implements IStockService{
     KtProduitSolideRepository produitSolideRepository;
     @Autowired
     KtProduitLiquideRepository produitLiquideRepository;
+    
+    @Autowired
+    KtOperationStockRepository operationStockRepository;
+    
+    @Autowired
+    KtEntreeStockRepository entreeStockRepository;
+    
+    @Autowired
+    KtSortieStockRepository sortieStockRepository;
     
     
 
@@ -230,6 +245,84 @@ public class StockServiceImpl implements IStockService{
     @Override
     public Reponse listeProduitS(Pageable pageable) {
         return new Reponse(1, "liste  des produits solides", produitSolideRepository.findAll(pageable));
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<KtOperationStock> listeOperationStock() {
+        return operationStockRepository.findAll();
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Reponse ListeOperationStock(Pageable pageable) {
+        return new Reponse(1,"liste des opérations de stock", operationStockRepository.findAll(pageable));
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Reponse ListeEntreeStock(Pageable pageable) {
+        return new Reponse(1,"liste des opérations d'entrée en stock", entreeStockRepository.findAll(pageable));
+        
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Reponse ListeSortieStock(Pageable pageable) {
+        return new Reponse(1,"liste des opérations de sortie de stock", sortieStockRepository.findAll(pageable));
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public KtOperationStock saveOperationStock(KtOperationStock operation) {
+        return operationStockRepository.save(operation);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public KtEntreeStock saveOperationStock(KtEntreeStock operation) {
+        return entreeStockRepository.save(operation);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public KtSortieStock saveOperationStock(KtSortieStock operation) {
+        return sortieStockRepository.save(operation);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public KtOperationStock SearchOperation(String code) {
+        return operationStockRepository.findbyId(code);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Page<KtOperationStock> SearchOperation(String mc, Pageable pageable) {
+        return operationStockRepository.findOperation(mc, pageable);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public KtOperationStock updateOperation(KtOperationStock operation) {
+       return operationStockRepository.saveAndFlush(operation);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void deleteOperationStock(String code) {
+        operationStockRepository.deleteById(code);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Reponse getAllOperation() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean searchExistOperation(String code) {
+        return operationStockRepository.existsById(code);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

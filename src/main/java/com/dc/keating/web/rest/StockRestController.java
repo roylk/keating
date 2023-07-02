@@ -6,9 +6,12 @@ package com.dc.keating.web.rest;
 
 import com.dc.keating.config.Reponse;
 import com.dc.keating.entities.KtCategorieProduit;
+import com.dc.keating.entities.KtEntreeStock;
+import com.dc.keating.entities.KtOperationStock;
 import com.dc.keating.entities.KtProduit;
 import com.dc.keating.entities.KtProduitLiquide;
 import com.dc.keating.entities.KtProduitSolide;
+import com.dc.keating.entities.KtSortieStock;
 import com.dc.keating.entities.KtSousCategorieProduit;
 import com.dc.keating.service.commercant.ICommercantService;
 import com.dc.keating.service.stock.IStockService;
@@ -195,6 +198,107 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
             KtProduit savedProduit = stockService.saveProduit(produit);
             
             rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
+
+            /*if (produit instanceof KtProduitSolide || produit instanceof KtProduitLiquide) {
+                if (produit instanceof KtProduitSolide) {
+                    KtProduitSolide produitSolide = (KtProduitSolide) produit;
+                    double poidsTotal = produitSolide.getPoidsUnitaire() * quantiteTotale;
+                    produitSolide.setPoidsTotal(poidsTotal);
+                    KtProduitSolide savedProduit = stockService.saveProduit(produitSolide);
+                    rep = new Reponse(1, "Produit solide enregistré avec succès", savedProduit);
+                } else {
+                    KtProduitLiquide produitLiquide = (KtProduitLiquide) produit;
+                    double volumeTotal = produitLiquide.getVolumeUnitaire() * quantiteTotale;
+                    produitLiquide.setVolumeTotal(volumeTotal);
+                    KtProduitLiquide savedProduit = stockService.saveProduit(produitLiquide);
+                    rep = new Reponse(1, "Produit liquide enregistré avec succès", savedProduit);
+                }
+            } else {
+                // Si le produit n'est ni solide ni liquide, vous pouvez enregistrer le produit générique
+                KtProduit savedProduit = stockService.saveProduit(produit);
+                rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
+            }*/
+        }
+    } catch (Exception e) {
+        rep = new Reponse(0, e.getMessage(), null);
+    }
+
+    return rep;
+}
+
+@ApiOperation("Créer une opération de stock")
+@PostMapping(value = "/operation", produces = MediaType.APPLICATION_JSON_VALUE)
+public Reponse saveOperation(@RequestBody KtOperationStock operation, @RequestParam(name = "codeProduit")String codeProduit) {
+    Reponse rep;
+    try {
+        if (stockService.searchExistOperation(operation.getCode())) {
+            rep = new Reponse(0, "L'opération existe déjà", null);
+        } else {
+            KtProduit prod = stockService.searchProduit(codeProduit);
+            if (operation instanceof KtEntreeStock){
+                KtEntreeStock entreeStock = (KtEntreeStock) operation;
+                if (prod instanceof KtProduitSolide){
+                    KtProduitSolide prodSolide= (KtProduitSolide) prod;
+                    Double totalEntree = entreeStock.getQuantiteEntree()*prodSolide.getPackaging();
+                    Double quantiteTotale = prodSolide.getQuantiteTotale()+ totalEntree;
+                    Double poidsEntre = totalEntree*prodSolide.getPoidsUnitaire();
+                    Double poidsTotal= poidsEntre+prodSolide.getPoidsTotal();
+                    prodSolide.setQuantiteTotale(quantiteTotale);
+                    prodSolide.setPoidsTotal(poidsTotal);
+                    entreeStock.setPoidsEntre(poidsEntre);
+                    entreeStock.setProduit(prodSolide);    
+                }
+                else{
+                    KtProduitLiquide prodLiquide= (KtProduitLiquide) prod;
+                    Double totalEntree = entreeStock.getQuantiteEntree()*prodLiquide.getPackaging();
+                    Double quantiteTotale = prodLiquide.getQuantiteTotale()+ totalEntree;
+                    Double volumeEntre = totalEntree*prodLiquide.getVolumeUnitaire();
+                    Double volumeTotal = volumeEntre + prodLiquide.getVolumeTotal();
+                    prodLiquide.setQuantiteTotale(quantiteTotale);
+                    prodLiquide.setVolumeTotal(volumeTotal);
+                    entreeStock.setVolumeEntre(volumeEntre);
+                    entreeStock.setProduit(prodLiquide);        
+                }
+                KtEntreeStock operationSaved = stockService.saveOperationStock(entreeStock);
+                rep = new Reponse(1, "Operation d'entrée de stock effectuée succès", operationSaved);            
+            }else{
+                KtSortieStock sortieStock  = (KtSortieStock)operation;
+                if (prod instanceof KtProduitSolide){
+                    KtProduitSolide prodSolide= (KtProduitSolide) prod;
+                    Double totalSortie = sortieStock.getQuantiteSortie()*prodSolide.getPackaging();
+                    Double quantiteTotale = prodSolide.getQuantiteTotale() - totalSortie;
+                    Double poidsSortie = totalSortie*prodSolide.getPoidsUnitaire();
+                    Double poidsTotal = prodSolide.getPoidsTotal()-poidsSortie;
+                    sortieStock.setPoidsEntre(poidsSortie);
+                    prodSolide.setQuantiteTotale(quantiteTotale);
+                    prodSolide.setPoidsTotal(poidsTotal);
+                    sortieStock.setProduit(prodSolide);    
+                }
+                else{
+                    KtProduitLiquide prodLiquide= (KtProduitLiquide) prod;
+                    Double totalSortie = sortieStock.getQuantiteSortie()*prodLiquide.getPackaging();
+                    Double quantiteTotale = prodLiquide.getQuantiteTotale()- totalSortie;
+                    Double volumeSorti = totalSortie*prodLiquide.getVolumeUnitaire();
+                    Double volumeTotal = prodLiquide.getVolumeTotal()-volumeSorti;
+                    prodLiquide.setQuantiteTotale(quantiteTotale);
+                    prodLiquide.setVolumeUnitaire(volumeTotal);
+                    sortieStock.setVolumeSorti(volumeSorti);
+                    sortieStock.setProduit(prodLiquide);        
+                }
+                KtSortieStock operationSaved = stockService.saveOperationStock(sortieStock);
+                rep = new Reponse(1, "Operation de sortie de stock effectuée succès", operationSaved);   
+            } 
+                
+            //if (prod instanceof KtProduitSolide)
+            /*produit.setSousCategorieProduit(stockService.searchSousCategorieProduit(produit.getSousCategorieProduit().getCode()));
+            produit.setPointDeVente(commercantService.searchPointDeVente(produit.getPointDeVente().getCode()));
+            Double quantiteTotale = produit.getPackaging() * produit.getQuantiteUnitaire();
+            produit.setQuantiteTotale(quantiteTotale);
+            Double poidsTotal = produit.getPoidsUnitaire()*quantiteTotale;
+            produit.setPoidsTotal(poidsTotal);
+            KtProduit savedProduit = stockService.saveProduit(produit);*/
+            
+            //rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
 
             /*if (produit instanceof KtProduitSolide || produit instanceof KtProduitLiquide) {
                 if (produit instanceof KtProduitSolide) {
