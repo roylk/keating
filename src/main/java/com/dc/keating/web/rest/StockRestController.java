@@ -229,7 +229,7 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
 @ApiOperation("Créer une opération de stock")
 @PostMapping(value = "/operation", produces = MediaType.APPLICATION_JSON_VALUE)
 public Reponse saveOperation(@RequestBody KtOperationStock operation, @RequestParam(name = "codeProduit")String codeProduit) {
-    Reponse rep;
+    Reponse rep = null;
     try {
         if (stockService.searchExistOperation(operation.getCode())) {
             rep = new Reponse(0, "L'opération existe déjà", null);
@@ -261,7 +261,8 @@ public Reponse saveOperation(@RequestBody KtOperationStock operation, @RequestPa
                 }
                 KtEntreeStock operationSaved = stockService.saveOperationStock(entreeStock);
                 rep = new Reponse(1, "Operation d'entrée de stock effectuée succès", operationSaved);            
-            }else{
+            }
+            else if(operation instanceof KtSortieStock){
                 KtSortieStock sortieStock  = (KtSortieStock)operation;
                 if (prod instanceof KtProduitSolide){
                     KtProduitSolide prodSolide= (KtProduitSolide) prod;
@@ -323,7 +324,6 @@ public Reponse saveOperation(@RequestBody KtOperationStock operation, @RequestPa
     } catch (Exception e) {
         rep = new Reponse(0, e.getMessage(), null);
     }
-
     return rep;
 }
 
