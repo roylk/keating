@@ -32,7 +32,7 @@ public class KtEntreeStock extends KtOperationStock {
     @Column(name = "poids_entre", precision = 22, scale = 0)
     private Double poidsEntre;
 
-    public KtEntreeStock() {
+    public KtEntreeStock(String description, String nom, KtProduit produit, Double quantite) {
     }
 
     public KtEntreeStock(Double quantite, KtProduit produit, String nom, String description) {
