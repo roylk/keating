@@ -45,7 +45,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 //@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public  class  KtOperationStock extends AuditModel implements Serializable {
+public abstract class  KtOperationStock extends AuditModel implements Serializable {
     
     private static final long serialVersionUID = 1L; 
     @Id
