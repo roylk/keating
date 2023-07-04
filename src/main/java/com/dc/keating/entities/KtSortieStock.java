@@ -37,8 +37,8 @@ public class KtSortieStock extends KtOperationStock {
         super(quantite, produit);
     }
 
-    public KtSortieStock(Double volumeSorti, Double poidsEntre, Long id, Double quantite, String nom, String description, KtProduit produit) {
-        super(id, quantite, nom, description, produit);
+    public KtSortieStock(Double volumeSorti, Double poidsEntre,  Double quantite, String nom, String description, KtProduit produit) {
+        super( quantite, nom, description, produit);
         this.volumeSorti = volumeSorti;
         this.poidsEntre = poidsEntre;
     }

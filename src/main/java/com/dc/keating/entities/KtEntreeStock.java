@@ -33,17 +33,27 @@ public class KtEntreeStock extends KtOperationStock {
     private Double poidsEntre;
 
     public KtEntreeStock(String description, String nom, KtProduit produit, Double quantite) {
+        
     }
 
     public KtEntreeStock(Double quantite, KtProduit produit, String nom, String description) {
-        super (quantite, produit);
+        super (quantite, produit, nom, description);
     }
 
-    public KtEntreeStock(Double volumeEntre, Double poidsEntre, Long id, Double quantite, String nom, String description, KtProduit produit) {
-        super(id, quantite, nom, description, produit);
+    public KtEntreeStock(Double volumeEntre, Double poidsEntre, Double quantite, KtProduit produit, String nom, String description) {
+        super(quantite, produit, nom, description);
         this.volumeEntre = volumeEntre;
         this.poidsEntre = poidsEntre;
     }
+
+    public KtEntreeStock() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
+
+    
+    
 
     
    

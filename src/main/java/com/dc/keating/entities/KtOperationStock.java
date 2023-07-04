@@ -65,9 +65,8 @@ public abstract class  KtOperationStock extends AuditModel implements Serializab
     @ManyToOne(optional = false)
     private KtProduit produit;
 
-    public KtOperationStock(Long id, Double quantite, String nom, String description, KtProduit produit) {
+    public KtOperationStock(Double quantite, String nom, String description, KtProduit produit) {
         super();
-        this.id = id;
         this.quantite = quantite;
         this.nom = nom;
         this.description = description;
