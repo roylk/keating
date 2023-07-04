@@ -49,7 +49,7 @@ public abstract class  KtOperationStock extends AuditModel implements Serializab
     
     private static final long serialVersionUID = 1L; 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Basic(optional = false)
     //@Column(name = "code", nullable = false, length = 10) 
     @Column(name = "id", nullable = false)
