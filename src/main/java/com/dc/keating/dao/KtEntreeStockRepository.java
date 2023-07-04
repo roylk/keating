@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author user
  */
-public interface KtEntreeStockRepository extends JpaRepository<KtEntreeStock,String> {
+public interface KtEntreeStockRepository extends JpaRepository<KtEntreeStock,Long> {
     
     
     

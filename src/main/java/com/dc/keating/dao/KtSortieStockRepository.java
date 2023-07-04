@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author user
  */
-public interface KtSortieStockRepository extends JpaRepository<KtSortieStock,String> {
+public interface KtSortieStockRepository extends JpaRepository<KtSortieStock,Long> {
     
 }

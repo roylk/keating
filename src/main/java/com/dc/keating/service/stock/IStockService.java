@@ -56,7 +56,7 @@ public interface IStockService {
     public KtSousCategorieProduit searchSousCategorieProduit(String code);
     public KtCategorieProduit searchCategorieProduit(String code);
     public KtProduit searchProduit(String code);
-    public KtOperationStock SearchOperation(String code);
+    public KtOperationStock SearchOperation(Long id);
     
     public Page<KtSousCategorieProduit> SearchSousCategories(String mc, Pageable pageable);
     public Page<KtCategorieProduit> SearchCategories(String mc, Pageable pageable);
@@ -71,7 +71,7 @@ public interface IStockService {
     public void deleteSousCategorieProduit(String code);
     public void deleteCategorieProduit(String code);
     public void deleteProduit(String code);
-    public void deleteOperationStock(String code);
+    public void deleteOperationStock(Long id);
     
     public Reponse getAllSousCategorieProduit();
     public Reponse getAllCategorieProduit();
@@ -81,7 +81,7 @@ public interface IStockService {
     public boolean searchExistsScatProduit(String code);
     public boolean searchExistsCatProduit(String code);
     public boolean searchExistProduit(String code);
-    public boolean searchExistOperation(String code);
+    public boolean searchExistOperation(Long  id);
     
     public void entrerStock(String codeProduit, Double quantite);
     public void sortirStock(String codeProduit, Double quantite);

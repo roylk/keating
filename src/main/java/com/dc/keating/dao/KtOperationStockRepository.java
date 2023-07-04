@@ -16,11 +16,15 @@ import org.springframework.data.repository.query.Param;
  *
  * @author user
  */
-public interface KtOperationStockRepository extends JpaRepository<KtOperationStock, String> {
+public interface KtOperationStockRepository extends JpaRepository<KtOperationStock, Long> {
     @Query("select o from KtOperationStock o where o.nom like :x")
     public Page<KtOperationStock> findOperation(@Param("x") String mc, Pageable pageable);
         
-    @Query("select o from KtOperationStock o where o.code=:x")
-    public KtOperationStock findbyId(@Param("x") String code);
+    @Query("select o from KtOperationStock o where o.id=:x")
+    public KtOperationStock findbyId(@Param("x") Long id);
+    
+    /*@Query("SELECT r FROM KtRegion r WHERE r.id = :id")
+    KtRegion findByIdRegion(Integer id);*/
+    
     
 }

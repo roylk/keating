@@ -298,8 +298,8 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public KtOperationStock SearchOperation(String code) {
-        return operationStockRepository.findbyId(code);
+    public KtOperationStock SearchOperation(Long id) {
+        return operationStockRepository.findbyId(id);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -316,8 +316,8 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public void deleteOperationStock(String code) {
-        operationStockRepository.deleteById(code);
+    public void deleteOperationStock(Long id) {
+        operationStockRepository.deleteById(id);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -327,8 +327,8 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public boolean searchExistOperation(String code) {
-        return operationStockRepository.existsById(code);
+    public boolean searchExistOperation(Long id) {
+        return operationStockRepository.existsById(id);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -346,5 +346,12 @@ public class StockServiceImpl implements IStockService{
     public void sortirStock(String codeProduit, Double quantite) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    /*@Override
+    public KtOperationStock SearchOperation(String code) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }*/
+
+   
     
 }
