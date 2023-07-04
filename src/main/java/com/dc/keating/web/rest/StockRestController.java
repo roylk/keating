@@ -228,7 +228,7 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
 
 @ApiOperation("effectuer une entrée  en  stock")
 @PostMapping(value = "/EntreeStock", produces = MediaType.APPLICATION_JSON_VALUE)
-public Reponse stockIn(String  codeProduit, Double quantite, String nom, String description) {
+public Reponse stockIn(@RequestParam(name = "codeProduit")String  codeProduit, @RequestParam(name = "quantite")Double quantite, @RequestParam(name = "nom")String nom, @RequestParam(name = "description" )String description) {
     Reponse rep;
     
     try{
