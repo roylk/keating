@@ -35,7 +35,7 @@ public class KtEntreeStock extends KtOperationStock {
     public KtEntreeStock() {
     }
 
-    public KtEntreeStock(Double quantite, KtProduit produit) {
+    public KtEntreeStock(Double quantite, KtProduit produit, String nom, String description) {
         super (quantite, produit);
     }
 
