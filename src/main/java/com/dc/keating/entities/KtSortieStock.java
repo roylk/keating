@@ -30,7 +30,7 @@ public class KtSortieStock extends KtOperationStock {
     private Double poidsEntre;
 
     public KtSortieStock() {
-        super();
+       
     }
     
     public KtSortieStock(Double quantite, KtProduit produit) {

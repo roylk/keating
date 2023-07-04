@@ -32,6 +32,9 @@ public class KtEntreeStock extends KtOperationStock {
     @Column(name = "poids_entre", precision = 22, scale = 0)
     private Double poidsEntre;
 
+    public KtEntreeStock() {
+    }
+
     public KtEntreeStock(Double quantite, KtProduit produit) {
         super (quantite, produit);
     }
