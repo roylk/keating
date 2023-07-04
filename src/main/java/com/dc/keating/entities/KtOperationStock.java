@@ -79,6 +79,13 @@ public abstract class  KtOperationStock extends AuditModel implements Serializab
         this.produit = produit;
     }
     
+     public KtOperationStock(Double quantite, KtProduit produit, String nom, String description) {
+        this.quantite = quantite;
+        this.produit = produit;
+        this.nom = nom;
+        this.description = description;
+    }
+    
     
     
     
