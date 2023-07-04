@@ -333,7 +333,7 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public void entrerStock(String codeProduit, Double quantite) {
+    public void entrerStock(String codeProduit, Double quantite, String nom, String description) {
         KtProduit produit = searchProduit(codeProduit);
         KtEntreeStock entreeStock = new KtEntreeStock(quantite, produit, "entree","une description");
         operationStockRepository.save(entreeStock);
