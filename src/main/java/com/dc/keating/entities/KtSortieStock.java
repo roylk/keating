@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 public class KtSortieStock extends KtOperationStock {
     /*@Column(name = "quantite_sortie", precision = 22, scale = 0)
@@ -28,5 +28,21 @@ public class KtSortieStock extends KtOperationStock {
     private Double volumeSorti;
     @Column(name = "poids_sorti", precision = 22, scale = 0)
     private Double poidsEntre;
+
+    public KtSortieStock() {
+        super();
+    }
+    
+    public KtSortieStock(Double quantite, KtProduit produit) {
+        super(quantite, produit);
+    }
+
+    public KtSortieStock(Double volumeSorti, Double poidsEntre, Long id, Double quantite, String nom, String description, KtProduit produit) {
+        super(id, quantite, nom, description, produit);
+        this.volumeSorti = volumeSorti;
+        this.poidsEntre = poidsEntre;
+    }
+    
+    
     
 }
