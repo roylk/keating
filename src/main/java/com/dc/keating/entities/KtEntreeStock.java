@@ -20,17 +20,35 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 public class KtEntreeStock extends KtOperationStock {
    
-    @Column(name = "quantite_entree", precision = 22, scale = 0)
-    private Double quantiteEntree;
+    /*@Column(name = "quantite_entree", precision = 22, scale = 0)
+    private Double quantiteEntree;*/
     @Column(name = "volume_entre", precision = 22, scale = 0)
     private Double volumeEntre;
     @Column(name = "poids_entre", precision = 22, scale = 0)
     private Double poidsEntre;
+
+    public KtEntreeStock(Double quantite, KtProduit produit) {
+        super (quantite, produit);
+    }
+
+    public KtEntreeStock(Double volumeEntre, Double poidsEntre, Long id, Double quantite, String nom, String description, KtProduit produit) {
+        super(id, quantite, nom, description, produit);
+        this.volumeEntre = volumeEntre;
+        this.poidsEntre = poidsEntre;
+    }
+
+    
+   
+    
+    
+    
+    
+    
 
       
        

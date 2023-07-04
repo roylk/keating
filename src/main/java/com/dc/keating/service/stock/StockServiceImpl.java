@@ -131,7 +131,13 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public KtProduit searchProduit(String code) {
-        return produitRepository.findbyId(code);
+        try{
+            return produitRepository.findbyId(code);    
+        }catch(Exception e){
+            throw new UnsupportedOperationException(e.getMessage());
+            //throw new Exception(e.getMessage());
+        }
+        //return produitRepository.findbyId(code);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -324,6 +330,21 @@ public class StockServiceImpl implements IStockService{
     public boolean searchExistOperation(String code) {
         return operationStockRepository.existsById(code);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void entrerStock(String codeProduit, Double quantite) {
+        KtProduit produit = searchProduit(codeProduit);
+        KtEntreeStock entreeStock = new KtEntreeStock(quantite, produit);
+        operationStockRepository.save(entreeStock);
+        produit.setQuantiteUnitaire(produit.getQuantiteUnitaire()+quantite);
+        produitRepository.save(produit);  
+     //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void sortirStock(String codeProduit, Double quantite) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

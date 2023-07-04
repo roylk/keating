@@ -226,7 +226,22 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
     return rep;
 }
 
-@ApiOperation("Créer une opération de stock")
+@ApiOperation("effectuer une entrée  en  stock")
+@PostMapping(value = "/EntreeStock", produces = MediaType.APPLICATION_JSON_VALUE)
+public Reponse stockIn(String  codeProduit, Double quantite) {
+    Reponse rep;
+    
+    try{
+        stockService.entrerStock(codeProduit, quantite);
+        //page<KtOperationStock> listeOperationStock = stockService.
+        rep = new Reponse(1, "Entrée en stock effectué avec succes", null );      
+    }catch (Exception e){
+        rep = new Reponse(0, e.getMessage(), null);   
+    }
+    return rep;
+}
+
+/*@ApiOperation("Créer une opération de stock")
 @PostMapping(value = "/operation", produces = MediaType.APPLICATION_JSON_VALUE)
 public Reponse saveOperation(@RequestBody KtOperationStock operation, @RequestParam(name = "codeProduit")String codeProduit) {
     Reponse rep = null;
@@ -266,9 +281,9 @@ public Reponse saveOperation(@RequestBody KtOperationStock operation, @RequestPa
                 KtSortieStock sortieStock  = (KtSortieStock)operation;
                 if (prod instanceof KtProduitSolide){
                     KtProduitSolide prodSolide= (KtProduitSolide) prod;
-                    Double totalSortie = sortieStock.getQuantiteSortie()*prodSolide.getPackaging();
+                    //Double totalSortie = sortieStock.getQuantiteSortie()*prodSolide.getPackaging();
                     Double quantiteTotale = prodSolide.getQuantiteTotale() - totalSortie;
-                    Double poidsSortie = totalSortie*prodSolide.getPoidsUnitaire();
+                    //Double poidsSortie = totalSortie*prodSolide.getPoidsUnitaire();
                     Double poidsTotal = prodSolide.getPoidsTotal()-poidsSortie;
                     sortieStock.setPoidsEntre(poidsSortie);
                     prodSolide.setQuantiteTotale(quantiteTotale);
@@ -319,13 +334,13 @@ public Reponse saveOperation(@RequestBody KtOperationStock operation, @RequestPa
                 // Si le produit n'est ni solide ni liquide, vous pouvez enregistrer le produit générique
                 KtProduit savedProduit = stockService.saveProduit(produit);
                 rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
-            }*/
+            }
         }
     } catch (Exception e) {
         rep = new Reponse(0, e.getMessage(), null);
     }
     return rep;
-}
+}*/
 
 
     

@@ -43,18 +43,19 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class KtOperationStock extends AuditModel implements Serializable {
+public abstract class  KtOperationStock extends AuditModel implements Serializable {
     
-    private static final long serialVersionUID = 1L;
-    
+    private static final long serialVersionUID = 1L; 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "code", nullable = false, length = 10)
-    //@Column(name = "id", nullable = false)
-    private String code;
-    
+    //@Column(name = "code", nullable = false, length = 10) 
+    @Column(name = "id", nullable = false)
+    private Long id;
+    @Column(name = "quantite", precision = 22, scale = 0)
+    private Double quantite;
     @Column(name = "nom", nullable = false, length = 45)
     private String nom;
     @Column(name = "description", nullable = false, length = 100)
@@ -63,12 +64,30 @@ public class KtOperationStock extends AuditModel implements Serializable {
     @JoinColumn(name = "produit", referencedColumnName = "code", nullable = false)
     @ManyToOne(optional = false)
     private KtProduit produit;
+
+    public KtOperationStock(Long id, Double quantite, String nom, String description, KtProduit produit) {
+        super();
+        this.id = id;
+        this.quantite = quantite;
+        this.nom = nom;
+        this.description = description;
+        this.produit = produit;
+    }
+
+    public KtOperationStock(Double quantite, KtProduit produit) {
+        this.quantite = quantite;
+        this.produit = produit;
+    }
+    
+    
+    
+    
     
     
       @Override
     public int hashCode() {
         int hash = 0;
-        hash += (code != null ? code.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -79,7 +98,7 @@ public class KtOperationStock extends AuditModel implements Serializable {
             return false;
         }
         KtOperationStock other = (KtOperationStock) object;
-        if ((this.code == null && other.code != null) || (this.code != null && !this.code.equals(other.code))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -87,6 +106,6 @@ public class KtOperationStock extends AuditModel implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dc.keating.entities.KtOperationStock[ code=" + code + " ]";
+        return "com.dc.keating.entities.KtOperationStock[ code=" + id + " ]";
     }
 }

@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 public class KtSortieStock extends KtOperationStock {
-    @Column(name = "quantite_sortie", precision = 22, scale = 0)
-    private Double quantiteSortie;
+    /*@Column(name = "quantite_sortie", precision = 22, scale = 0)
+    private Double quantiteSortie;*/
     @Column(name = "volume_sorti", precision = 22, scale = 0)
     private Double volumeSorti;
     @Column(name = "poids_sorti", precision = 22, scale = 0)

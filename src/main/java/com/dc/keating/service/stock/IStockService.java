@@ -83,4 +83,7 @@ public interface IStockService {
     public boolean searchExistProduit(String code);
     public boolean searchExistOperation(String code);
     
+    public void entrerStock(String codeProduit, Double quantite);
+    public void sortirStock(String codeProduit, Double quantite);
+    
 }
