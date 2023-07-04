@@ -56,9 +56,9 @@ public abstract class  KtOperationStock extends AuditModel implements Serializab
     private Long id;
     @Column(name = "quantite", precision = 22, scale = 0)
     private Double quantite;
-    @Column(name = "nom", nullable = false, length = 45)
+    @Column(name = "nom", nullable = true, length = 45)
     private String nom;
-    @Column(name = "description", nullable = false, length = 100)
+    @Column(name = "description", nullable = true, length = 100)
     private  String description;
     
     @JoinColumn(name = "produit", referencedColumnName = "code", nullable = false)
