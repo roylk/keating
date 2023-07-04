@@ -228,11 +228,11 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
 
 @ApiOperation("effectuer une entrée  en  stock")
 @PostMapping(value = "/EntreeStock", produces = MediaType.APPLICATION_JSON_VALUE)
-public Reponse stockIn(String  codeProduit, Double quantite) {
+public Reponse stockIn(String  codeProduit, Double quantite, String nom, String description) {
     Reponse rep;
     
     try{
-        stockService.entrerStock(codeProduit, quantite,"nom", "description");
+        stockService.entrerStock(codeProduit, quantite, nom, description );
         //page<KtOperationStock> listeOperationStock = stockService.
         rep = new Reponse(1, "Entrée en stock effectué avec succes", null );      
     }catch (Exception e){
