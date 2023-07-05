@@ -227,7 +227,7 @@ public Reponse saveProduitL(@RequestBody KtProduitLiquide produit) {
 }
 
 @ApiOperation("effectuer une entrée  en  stock")
-@PostMapping(value = "/EntreeStock", produces = MediaType.APPLICATION_JSON_VALUE)
+@PostMapping(value = "/entreeStock", produces = MediaType.APPLICATION_JSON_VALUE)
 public Reponse stockIn(@RequestParam(name = "codeProduit")String  codeProduit, @RequestParam(name = "quantite")Double quantite, @RequestParam(name = "nom")String nom, @RequestParam(name = "description" )String description) {
     Reponse rep;
     
@@ -241,12 +241,12 @@ public Reponse stockIn(@RequestParam(name = "codeProduit")String  codeProduit, @
     return rep;
 }
 
-@ApiOperation("effectuer une entrée  en  stock")
-@PostMapping(value = "/SortieStock", produces = MediaType.APPLICATION_JSON_VALUE)
-public Reponse stockIn(@RequestParam(name = "codeProduit")String  codeProduit, @RequestParam(name = "quantite")Double quantite ){
+@ApiOperation("effectuer une   sortie de  stock")
+@PostMapping(value = "/sortieStock", produces = MediaType.APPLICATION_JSON_VALUE)
+public Reponse stockOut(@RequestParam(name = "codeProduit")String  codeProduit, @RequestParam(name = "quantite")Double quantite,@RequestParam(name = "nom")String nom, @RequestParam(name = "description" )String description ){
     Reponse rep;
     try{
-        stockService.sortirStock(codeProduit, quantite);
+        stockService.sortirStock(codeProduit, quantite,nom, description);
         //page<KtOperationStock> listeOperationStock = stockService.
         rep = new Reponse(1, "Entrée de stock effectué avec succes", null );      
     }catch (Exception e){

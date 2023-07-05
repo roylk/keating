@@ -355,7 +355,7 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public void sortirStock(String codeProduit, Double quantite) {
+    public void sortirStock(String codeProduit, Double quantite, String nom, String description) {
         Double poidsSorti, volumeSorti ;
         KtProduit produit = produitRepository.findbyId(codeProduit);
         Double quantiteDisponible = produit.getQuantiteTotale();
@@ -367,7 +367,7 @@ public class StockServiceImpl implements IStockService{
             poidsSorti = 0.0;
             volumeSorti = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire();
             ((KtProduitLiquide) produit).setVolumeTotal(((KtProduitLiquide) produit).getVolumeTotal()- volumeSorti);
-            KtSortieStock sortieStock = new KtSortieStock(volumeSorti, poidsSorti, quantite, null, null, produit);
+            KtSortieStock sortieStock = new KtSortieStock(volumeSorti, poidsSorti, quantite, nom, description, produit);
             operationStockRepository.save(sortieStock);
             
         }
