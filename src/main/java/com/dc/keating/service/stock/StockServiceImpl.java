@@ -334,6 +334,7 @@ public class StockServiceImpl implements IStockService{
         KtEntreeStock entreeStock = new KtEntreeStock(null, null, quantite, nom, description, produit);
         operationStockRepository.save(entreeStock);
         produit.setQuantiteUnitaire(quantite+produit.getQuantiteUnitaire());
+        produit.setQuantiteTotale(produit.getQuantiteTotale()+(produit.getPackaging()*quantite));
         produitRepository.save(produit);
         
      //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
