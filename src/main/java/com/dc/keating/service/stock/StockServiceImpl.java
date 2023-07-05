@@ -337,6 +337,7 @@ public class StockServiceImpl implements IStockService{
         if(produit instanceof KtProduitLiquide){
             poidsEntre = 0.0;
             volumeEntre = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire();
+            ((KtProduitLiquide) produit).setVolumeTotal(volumeEntre+((KtProduitLiquide) produit).getVolumeTotal());
             KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
             operationStockRepository.save(entreeStock);
             
@@ -344,6 +345,7 @@ public class StockServiceImpl implements IStockService{
         if(produit instanceof KtProduitSolide){
             volumeEntre = 0.0;
             poidsEntre = quantite * ((KtProduitSolide) produit).getPoidsUnitaire();
+            ((KtProduitSolide) produit).setPoidsTotal(poidsEntre + ((KtProduitSolide) produit).getPoidsTotal());
             KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
             operationStockRepository.save(entreeStock);
         } 
