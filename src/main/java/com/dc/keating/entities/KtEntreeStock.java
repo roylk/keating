@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 public class KtEntreeStock extends KtOperationStock {
    
@@ -32,37 +32,13 @@ public class KtEntreeStock extends KtOperationStock {
     @Column(name = "poids_entre", precision = 22, scale = 0)
     private Double poidsEntre;
 
-    public KtEntreeStock(String description, String nom, KtProduit produit, Double quantite) {
-        
-    }
-
-    public KtEntreeStock(Double quantite, KtProduit produit, String nom, String description) {
-        super (quantite, produit, nom, description);
-    }
-
-    public KtEntreeStock(Double volumeEntre, Double poidsEntre, Double quantite, KtProduit produit, String nom, String description) {
-        super(quantite, produit, nom, description);
+    public KtEntreeStock(Double volumeEntre, Double poidsEntre, Double quantite, String nom, String description, KtProduit produit) {
+        super(quantite, nom, description, produit);
         this.volumeEntre = volumeEntre;
         this.poidsEntre = poidsEntre;
     }
 
-    public KtEntreeStock() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
-    
-
-    
-    
-
-    
-   
-    
-    
-    
-    
-    
-
       
        
 }

@@ -329,13 +329,9 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public void entrerStock(String codeProduit, Double quantite, String nom, String description) {
+    public void entrerStock(String codeProduit, Double quantite, String description, String nom) {
         KtProduit produit = produitRepository.findbyId(codeProduit);
-        KtOperationStock entreeStock = new KtEntreeStock();
-        entreeStock.setDescription(description);
-        entreeStock.setNom(nom);
-        entreeStock.setQuantite(quantite);
-        entreeStock.setProduit(produit);
+        KtEntreeStock entreeStock = new KtEntreeStock(null, null, quantite, nom, description, produit);
         operationStockRepository.save(entreeStock);
         produit.setQuantiteUnitaire(quantite+produit.getQuantiteUnitaire());
         produitRepository.save(produit);

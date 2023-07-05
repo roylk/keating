@@ -232,7 +232,7 @@ public Reponse stockIn(@RequestParam(name = "codeProduit")String  codeProduit, @
     Reponse rep;
     
     try{
-        stockService.entrerStock(codeProduit, quantite, nom, description);
+        stockService.entrerStock(codeProduit, quantite, nom , description);
         //page<KtOperationStock> listeOperationStock = stockService.
         rep = new Reponse(1, "Entrée en stock effectué avec succes", null );      
     }catch (Exception e){
