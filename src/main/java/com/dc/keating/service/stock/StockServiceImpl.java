@@ -330,11 +330,30 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public void entrerStock(String codeProduit, Double quantite, String description, String nom) {
+        Double poidsEntre, volumeEntre ;
         KtProduit produit = produitRepository.findbyId(codeProduit);
-        KtEntreeStock entreeStock = new KtEntreeStock(null, null, quantite, nom, description, produit);
-        operationStockRepository.save(entreeStock);
         produit.setQuantiteUnitaire(quantite+produit.getQuantiteUnitaire());
         produit.setQuantiteTotale(produit.getQuantiteTotale()+(produit.getPackaging()*quantite));
+        if(produit instanceof KtProduitLiquide){
+            poidsEntre = 0.0;
+            volumeEntre = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire();
+            KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
+            operationStockRepository.save(entreeStock);
+            
+        }
+        if(produit instanceof KtProduitSolide){
+            volumeEntre = 0.0;
+            poidsEntre = quantite * ((KtProduitSolide) produit).getPoidsUnitaire();
+            KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
+            operationStockRepository.save(entreeStock);
+        } 
+        
+           
+    
+        //KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
+        //operationStockRepository.save(entreeStock);
+        //produit.setQuantiteUnitaire(quantite+produit.getQuantiteUnitaire());
+        //produit.setQuantiteTotale(produit.getQuantiteTotale()+(produit.getPackaging()*quantite));
         produitRepository.save(produit);
         
      //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
