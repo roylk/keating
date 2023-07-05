@@ -241,6 +241,23 @@ public Reponse stockIn(@RequestParam(name = "codeProduit")String  codeProduit, @
     return rep;
 }
 
+@ApiOperation("effectuer une entrée  en  stock")
+@PostMapping(value = "/SortieStock", produces = MediaType.APPLICATION_JSON_VALUE)
+public Reponse stockIn(@RequestParam(name = "codeProduit")String  codeProduit, @RequestParam(name = "quantite")Double quantite ){
+    Reponse rep;
+    try{
+        stockService.sortirStock(codeProduit, quantite);
+        //page<KtOperationStock> listeOperationStock = stockService.
+        rep = new Reponse(1, "Entrée de stock effectué avec succes", null );      
+    }catch (Exception e){
+        rep = new Reponse(0, e.getMessage(), null);   
+    }
+    return rep;
+}
+
+
+
+
 /*@ApiOperation("Créer une opération de stock")
 @PostMapping(value = "/operation", produces = MediaType.APPLICATION_JSON_VALUE)
 public Reponse saveOperation(@RequestBody KtOperationStock operation, @RequestParam(name = "codeProduit")String codeProduit) {

@@ -336,7 +336,7 @@ public class StockServiceImpl implements IStockService{
         produit.setQuantiteTotale(produit.getQuantiteTotale()+(produit.getPackaging()*quantite));
         if(produit instanceof KtProduitLiquide){
             poidsEntre = 0.0;
-            volumeEntre = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire();
+            volumeEntre = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire()*produit.getPackaging();
             ((KtProduitLiquide) produit).setVolumeTotal(volumeEntre+((KtProduitLiquide) produit).getVolumeTotal());
             KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
             operationStockRepository.save(entreeStock);
@@ -348,14 +348,7 @@ public class StockServiceImpl implements IStockService{
             ((KtProduitSolide) produit).setPoidsTotal(poidsEntre + ((KtProduitSolide) produit).getPoidsTotal());
             KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
             operationStockRepository.save(entreeStock);
-        } 
-        
-           
-    
-        //KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
-        //operationStockRepository.save(entreeStock);
-        //produit.setQuantiteUnitaire(quantite+produit.getQuantiteUnitaire());
-        //produit.setQuantiteTotale(produit.getQuantiteTotale()+(produit.getPackaging()*quantite));
+        }  
         produitRepository.save(produit);
         
      //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -363,7 +356,30 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public void sortirStock(String codeProduit, Double quantite) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Double poidsSorti, volumeSorti ;
+        KtProduit produit = produitRepository.findbyId(codeProduit);
+        Double quantiteDisponible = produit.getQuantiteTotale();
+        if(quantite > quantiteDisponible)
+            throw new UnsupportedOperationException("quantite disponible insuffisante");
+        produit.setQuantiteUnitaire(produit.getQuantiteUnitaire()-(quantite/produit.getPackaging()));
+        produit.setQuantiteTotale(quantiteDisponible-quantite);
+        if(produit instanceof KtProduitLiquide){
+            poidsSorti = 0.0;
+            volumeSorti = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire();
+            ((KtProduitLiquide) produit).setVolumeTotal(((KtProduitLiquide) produit).getVolumeTotal()- volumeSorti);
+            KtSortieStock sortieStock = new KtSortieStock(volumeSorti, poidsSorti, quantite, null, null, produit);
+            operationStockRepository.save(sortieStock);
+            
+        }
+        if(produit instanceof KtProduitSolide){
+            volumeSorti = 0.0;
+            poidsSorti = quantite * ((KtProduitSolide) produit).getPoidsUnitaire();
+            ((KtProduitSolide) produit).setPoidsTotal(((KtProduitSolide) produit).getPoidsTotal()-poidsSorti);
+            KtSortieStock sortieStock = new KtSortieStock(volumeSorti, poidsSorti, quantite,null, null, produit);
+            operationStockRepository.save(sortieStock);
+        }  
+        produitRepository.save(produit);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /*@Override
