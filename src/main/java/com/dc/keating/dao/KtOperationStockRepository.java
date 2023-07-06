@@ -23,6 +23,8 @@ public interface KtOperationStockRepository extends JpaRepository<KtOperationSto
     @Query("select o from KtOperationStock o where o.id=:x")
     public KtOperationStock findbyId(@Param("x") Long id);
     
+    @Query("select o,p from KtOperationStock o, KtProduit p where o.produit=p.code AND p.code =?1 ")        
+    Page<KtOperationStock> findAllOperationByProduit(String codeP, Pageable pageable); 
     /*@Query("SELECT r FROM KtRegion r WHERE r.id = :id")
     KtRegion findByIdRegion(Integer id);*/
     

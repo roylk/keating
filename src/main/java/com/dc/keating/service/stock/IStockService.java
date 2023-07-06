@@ -40,6 +40,9 @@ public interface IStockService {
     public Reponse ListeOperationStock(Pageable pageable);
     public Reponse ListeEntreeStock(Pageable pageable);
     public Reponse ListeSortieStock(Pageable pageable);
+    public Reponse ListOperationByProduct(String codeP, Pageable pageable);
+    public Page<KtOperationStock> ListeOperationByProduit(String codeP, Pageable pageable);
+    
     
     
     public KtSousCategorieProduit saveSousCategorieProduit(KtSousCategorieProduit sCatProduit);
