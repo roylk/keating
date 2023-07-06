@@ -200,7 +200,7 @@ public class StockRestController {
         return rep;
     }
     
-     @ApiOperation("Mettre à jour un produit ")
+    @ApiOperation("Mettre à jour un produit ")
     @PutMapping(value = "/produits/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse updateProduit(@RequestBody KtProduit produit, @PathVariable("code") String code) {
         Reponse rep;
@@ -208,6 +208,22 @@ public class StockRestController {
             produit.setCode(code);
             KtProduit p = stockService.updateProduit(produit);
             rep = new Reponse(1, "mis à jour avec succes", p);
+
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+        }
+
+        return rep;
+    }
+    
+     @ApiOperation("Mettre à jour une opération de stock ")
+    @PutMapping(value = "/operationStocks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse updateProduit(@RequestBody KtOperationStock operation, @PathVariable("id") Long id) {
+        Reponse rep;
+        try {
+            operation.setId(id);
+            KtOperationStock op = stockService.updateOperation(operation);
+            rep = new Reponse(1, "mis à jour avec succes", op);
 
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);
@@ -257,6 +273,22 @@ public class StockRestController {
 
         return rep;
     }
+    
+    @ApiOperation("Supprimer une opération de stock")
+    @DeleteMapping(value = "/operationStock/{id}")
+    public Reponse deleteOperationStock(@PathVariable("id") Long id) {
+        Reponse rep;
+        try {
+            stockService.deleteOperationStock(id);
+            rep = new Reponse(1, "suppression réussie", null);
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+        }
+
+        return rep;
+    }
+    
+    
 
     @ApiOperation("Liste des sous catégories de produit")
     @GetMapping(value = "/souscategories", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -352,7 +384,7 @@ public class StockRestController {
         return rep;
     }
     
-     @ApiOperation("Liste des opérations par  produit")
+    @ApiOperation("Liste des opérations par  produit")
     @GetMapping(value = "/operationparproduit", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllOperationByProduit(String codeP, @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "5") int size) {
@@ -365,5 +397,48 @@ public class StockRestController {
         }
         return rep;
     }
+    
+    @ApiOperation("Liste des opérations de stock par page")
+    @GetMapping(value = "/poperationsStock", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllOperationsSPage(@RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.ListeOperationStock(PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
+    
+    @ApiOperation("Liste des entrées  en stock par page")
+    @GetMapping(value = "/pentreeStock", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllEntreeSPage(@RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.ListeEntreeStock(PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
+    
+    @ApiOperation("Liste des sorties de  stock par page")
+    @GetMapping(value = "/psortieStock", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllSortieSPage(@RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.ListeSortieStock(PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
+
 
 }

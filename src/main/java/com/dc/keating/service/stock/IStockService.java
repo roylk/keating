@@ -68,7 +68,7 @@ public interface IStockService {
     
     public KtSousCategorieProduit updateSousCategorieProduit(KtSousCategorieProduit sCatProduit);
     public KtCategorieProduit updateCategorieProduit(KtCategorieProduit catProduit);
-    public KtProduit updateProduit(KtProduit catProduit);
+    public KtProduit updateProduit(KtProduit produit);
     public KtOperationStock updateOperation(KtOperationStock operation);
     
     public void deleteSousCategorieProduit(String code);
