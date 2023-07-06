@@ -351,5 +351,19 @@ public class StockRestController {
         }
         return rep;
     }
+    
+     @ApiOperation("Liste des opérations par  produit")
+    @GetMapping(value = "/operationparproduit", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllOperationByProduit(String codeP, @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.ListOperationByProduct(codeP,PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
 
 }
