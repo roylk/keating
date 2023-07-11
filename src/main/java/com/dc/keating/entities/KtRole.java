@@ -51,8 +51,8 @@ public class KtRole implements Serializable {
     private String description;
     @ManyToMany(mappedBy = "ktRoleList")
     private List<KtPrivilege> ktPrivilegeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
-    private List<KtUtilisateur> ktUtilisateurList;
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    private List<KtUtilisateur> ktUtilisateurList;*/
 
     public KtRole() {
     }
@@ -99,14 +99,14 @@ public class KtRole implements Serializable {
         this.ktPrivilegeList = ktPrivilegeList;
     }
 
-    @XmlTransient
+   /* @XmlTransient
     public List<KtUtilisateur> getKtUtilisateurList() {
         return ktUtilisateurList;
     }
 
     public void setKtUtilisateurList(List<KtUtilisateur> ktUtilisateurList) {
         this.ktUtilisateurList = ktUtilisateurList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
