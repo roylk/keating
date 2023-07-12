@@ -137,6 +137,26 @@ public class AuthentificationRestController {
         }
         return rep;
     }
+    
+   
+    @ApiOperation("Créer un privilige")
+    @PostMapping(value = "/privilege", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse savePrivilege(@RequestBody KtPrivilege privilege) {
+        KtPrivilege p;
+        boolean exists = authentificationService.searchExistsPrivilege(privilege.getCode());
+        if (exists) {
+            return new Reponse(2, "le privilege existe déjà ", null);
+        } else {
+            p = authentificationService.savePrivilege(privilege);
+        }
+        if (p != null) {
+
+            return new Reponse(1, "enregistré  avec succes", p);
+        } else {
+
+            return new Reponse(0, "Une erreur s'est produite pendant l'enregistrement", null);
+        }
+    }
 
     @ApiOperation("Liste des privilège par page")
     @GetMapping(value = "/pprivileges", produces = MediaType.APPLICATION_JSON_VALUE)
