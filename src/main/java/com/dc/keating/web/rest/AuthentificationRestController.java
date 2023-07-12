@@ -195,7 +195,7 @@ public class AuthentificationRestController {
     
     @ApiOperation("Mettre à jour un privilège ")
     @RequestMapping(value = "/privileges/{code}", method = RequestMethod.PUT , produces = MediaType.APPLICATION_JSON_VALUE)
-	public Reponse updateRole(@RequestBody KtPrivilege privilege, @PathVariable("code") String code) {
+	public Reponse updatePrivilege(@RequestBody KtPrivilege privilege, @PathVariable("code") String code) {
             Reponse rep;
             try{
                  privilege.setCode(code);
@@ -209,8 +209,8 @@ public class AuthentificationRestController {
 
     
     @ApiOperation("Mettre à jour un role ")
-    @RequestMapping(value = "/privileges/{id}", method = RequestMethod.PUT , produces = MediaType.APPLICATION_JSON_VALUE)
-	public Reponse updateRole(@RequestBody KtRole role, @PathVariable("code") Integer id) {
+    @RequestMapping(value = "/roles/{id}", method = RequestMethod.PUT , produces = MediaType.APPLICATION_JSON_VALUE)
+	public Reponse updateRole(@RequestBody KtRole role, @PathVariable("id") Integer id) {
             Reponse rep;
             try{
                  role.setId(id);
