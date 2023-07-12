@@ -42,9 +42,9 @@ public class KtPrivilege implements Serializable {
     @Lob
     @Column(name = "description", length = 16777215)
     private String description;
-//    @JoinTable(name = "kt_role_privilege", joinColumns = {
-//        @JoinColumn(name = "privilege", referencedColumnName = "code", nullable = false)}, inverseJoinColumns = {
-//        @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)})
+//   @JoinTable(name = "kt_role_privilege", joinColumns = {
+//      @JoinColumn(name = "privilege", referencedColumnName = "code", nullable = false)}, inverseJoinColumns = {
+//       @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)})
 //    @ManyToMany
 //    private List<KtRole> ktRoleList;
 

@@ -10,9 +10,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -49,7 +52,11 @@ public class KtRole implements Serializable {
     @Lob
     @Column(name = "description", length = 16777215)
     private String description;
-    @ManyToMany(mappedBy = "ktRoleList")
+    @JoinTable(name = "kt_role_privilege", joinColumns = {
+        @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "privilege", referencedColumnName = "code", nullable = false)})
+    @ManyToMany(fetch = FetchType.LAZY)
+    //@ManyToMany(mappedBy = "ktRoleList")
     private List<KtPrivilege> ktPrivilegeList;
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
     private List<KtUtilisateur> ktUtilisateurList;*/
