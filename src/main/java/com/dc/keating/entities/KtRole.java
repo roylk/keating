@@ -26,6 +26,9 @@ import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 /**
  *
  * @author user
@@ -55,7 +58,7 @@ public class KtRole implements Serializable {
     @JoinTable(name = "kt_role_privilege", joinColumns = {
         @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "privilege", referencedColumnName = "code", nullable = false)})
-    @ManyToMany
+    @ManyToMany @Fetch(FetchMode.JOIN)
     //@ManyToMany(mappedBy = "ktRoleList")
     private List<KtPrivilege> ktPrivilegeList;
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
