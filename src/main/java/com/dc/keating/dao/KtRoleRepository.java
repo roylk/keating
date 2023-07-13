@@ -17,4 +17,7 @@ public interface KtRoleRepository extends JpaRepository <KtRole, Integer>{
     @Query("SELECT r FROM KtRole r WHERE r.libele = ?1")
     KtRole getOneByCode(String libele); 
     
+    @Query("SELECT r FROM KtRole r WHERE r.id = ?1")
+    KtRole getOneById(Integer id); 
+    
 }

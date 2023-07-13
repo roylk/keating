@@ -115,7 +115,8 @@ public class AuthentificationServiceImpl implements IAuthentificationService {
 
     @Override
     public KtRole getOneRole(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return roleRepository.getOneById(id);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
