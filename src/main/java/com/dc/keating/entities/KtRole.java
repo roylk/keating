@@ -55,7 +55,7 @@ public class KtRole implements Serializable {
     /*@JoinTable(name = "kt_role_privilege", joinColumns = {
         @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "privilege", referencedColumnName = "code", nullable = false)})*/
-    @ManyToMany(mappedBy = "role")
+    @ManyToMany(mappedBy = "ktRoleList")
     //@ManyToMany(mappedBy = "ktRoleList")
     private List<KtPrivilege> ktPrivilegeList;
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
