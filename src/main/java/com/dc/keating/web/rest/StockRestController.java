@@ -18,6 +18,7 @@ import com.dc.keating.service.stock.IStockService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -86,7 +87,6 @@ public class StockRestController {
         return rep;
     }
 
-   
     @ApiOperation("Créer un produit solide")
     @PostMapping(value = "/produitS", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveProduit(@RequestBody KtProduitSolide produit) {
@@ -199,7 +199,7 @@ public class StockRestController {
 
         return rep;
     }
-    
+
     @ApiOperation("Mettre à jour un produit ")
     @PutMapping(value = "/produits/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse updateProduit(@RequestBody KtProduit produit, @PathVariable("code") String code) {
@@ -215,8 +215,8 @@ public class StockRestController {
 
         return rep;
     }
-    
-     @ApiOperation("Mettre à jour une opération de stock ")
+
+    @ApiOperation("Mettre à jour une opération de stock ")
     @PutMapping(value = "/operationStocks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse updateProduit(@RequestBody KtOperationStock operation, @PathVariable("id") Long id) {
         Reponse rep;
@@ -273,7 +273,7 @@ public class StockRestController {
 
         return rep;
     }
-    
+
     @ApiOperation("Supprimer une opération de stock")
     @DeleteMapping(value = "/operationStock/{id}")
     public Reponse deleteOperationStock(@PathVariable("id") Long id) {
@@ -287,8 +287,6 @@ public class StockRestController {
 
         return rep;
     }
-    
-    
 
     @ApiOperation("Liste des sous catégories de produit")
     @GetMapping(value = "/souscategories", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -383,14 +381,16 @@ public class StockRestController {
         }
         return rep;
     }
-    
-    @ApiOperation("Liste des opérations par  produit")
-    @GetMapping(value = "/operationparproduit", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Reponse getAllOperationByProduit(String codeP, @RequestParam(name = "page", defaultValue = "0") int page,
+
+    @ApiOperation("Liste des produits recherchés par mot clé ")
+    @GetMapping(value = "/rechproduit", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllProduitBy(String mc, @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "5") int size) {
         Reponse rep;
         try {
-            rep = stockService.ListOperationByProduct(codeP,PageRequest.of(page, size));
+            Page<KtProduit> listeProduits = stockService.SearchProduits("%" + mc + "%", PageRequest.of(page, size));
+            rep = new Reponse(1, "liste des produits trouvés", listeProduits);
+
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);
 
@@ -398,6 +398,36 @@ public class StockRestController {
         return rep;
     }
     
+    @ApiOperation("Liste des opérations recherchées par mot clé ")
+    @GetMapping(value = "/rechoperation", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllOperationBy(String mc, @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            Page<KtOperationStock> listeOperations = stockService.SearchOperation("%" + mc + "%", PageRequest.of(page, size));
+            rep = new Reponse(1, "liste des produits trouvés", listeOperations);
+
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
+
+    @ApiOperation("Liste des opérations par  produit")
+    @GetMapping(value = "/operationparproduit", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllOperationByProduit(String codeP, @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.ListOperationByProduct(codeP, PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
+
     @ApiOperation("Liste des opérations de stock par page")
     @GetMapping(value = "/poperationsStock", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllOperationsSPage(@RequestParam(name = "page", defaultValue = "0") int page,
@@ -411,7 +441,7 @@ public class StockRestController {
         }
         return rep;
     }
-    
+
     @ApiOperation("Liste des entrées  en stock par page")
     @GetMapping(value = "/pentreeStock", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllEntreeSPage(@RequestParam(name = "page", defaultValue = "0") int page,
@@ -425,7 +455,7 @@ public class StockRestController {
         }
         return rep;
     }
-    
+
     @ApiOperation("Liste des sorties de  stock par page")
     @GetMapping(value = "/psortieStock", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllSortieSPage(@RequestParam(name = "page", defaultValue = "0") int page,
@@ -439,6 +469,5 @@ public class StockRestController {
         }
         return rep;
     }
-
 
 }

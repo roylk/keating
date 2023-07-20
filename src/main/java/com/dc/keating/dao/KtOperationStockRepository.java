@@ -17,7 +17,7 @@ import org.springframework.data.repository.query.Param;
  * @author user
  */
 public interface KtOperationStockRepository extends JpaRepository<KtOperationStock, Long> {
-    @Query("select o from KtOperationStock o where o.nom like :x")
+    @Query("select o from KtOperationStock o where o.nom like :x OR o.description like :x")
     public Page<KtOperationStock> findOperation(@Param("x") String mc, Pageable pageable);
         
     @Query("select o from KtOperationStock o where o.id=:x")

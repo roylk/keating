@@ -151,7 +151,8 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public Page<KtProduit> SearchProduits(String mc, Pageable pageable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return produitRepository.findProduit(mc, pageable);
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override

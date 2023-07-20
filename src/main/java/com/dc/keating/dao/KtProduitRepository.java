@@ -16,7 +16,7 @@ import org.springframework.data.repository.query.Param;
  * @author user
  */
 public interface KtProduitRepository extends JpaRepository<KtProduit,String> {
-    @Query("select p from KtProduit p where p.libelle like :x")
+    @Query("select p from KtProduit p where p.libelle like :x OR p.code like :x")
     public Page<KtProduit> findProduit(@Param("x") String mc, Pageable pageable);
         
     @Query("select p from KtProduit p where p.code=:x")
