@@ -399,6 +399,12 @@ public class StockServiceImpl implements IStockService{
         return operationStockRepository.findAllOperationByProduit(codeP, pageable);
        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public Reponse ListProduitByPV(String codeP, Pageable pageable) {
+        return new Reponse(1, "liste des produits par point de vente",produitRepository.findAllProduitByPV(codeP, pageable));
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 

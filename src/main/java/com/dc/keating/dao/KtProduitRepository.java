@@ -22,5 +22,7 @@ public interface KtProduitRepository extends JpaRepository<KtProduit,String> {
     @Query("select p from KtProduit p where p.code=:x")
     public KtProduit findbyId(@Param("x") String code);
     
-    
+    @Query("select p from KtProduit p, KtPointDeVente v where p.pointDeVente=v.code AND v.code =?1 ")        
+    Page<KtProduit> findAllProduitByPV(String codeP, Pageable pageable); 
+     
 }

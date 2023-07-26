@@ -22,6 +22,9 @@ public interface KtPointDeVenteRepository extends JpaRepository<KtPointDeVente,S
         
         @Query("select p from KtPointDeVente p where p.code=:x")
 	public KtPointDeVente findbyId(@Param("x") String code);
+        
+        @Query("select p from KtPointDeVente p, KtCommercant c where p.commercantCode=c.code AND c.code =?1")        
+        Page<KtPointDeVente> findAllPointDeVenteByCommercant(String codeC, Pageable pageable); 
     
     
     

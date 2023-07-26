@@ -196,12 +196,19 @@ public class CommercantRestController {
         }
         return rep;
     }
+    
+    @ApiOperation("Liste des points de vente  par  commercant")
+    @GetMapping(value = "/pvparcommercant", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllPvByCommercant(String codeC, @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = commercantService.ListPointDeVenteByCommercant(codeC, PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
 
-
-    
-    
-    
-    
-    
-    
+        }
+        return rep;
+    }
+  
 }

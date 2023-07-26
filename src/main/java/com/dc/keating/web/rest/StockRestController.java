@@ -353,6 +353,22 @@ public class StockRestController {
         }
         return rep;
     }
+    
+    @ApiOperation("Liste des produits par  point de vente")
+    @GetMapping(value = "/produitparpv", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reponse getAllProduitByPV(String codeP, @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        Reponse rep;
+        try {
+            rep = stockService.ListProduitByPV(codeP, PageRequest.of(page, size));
+        } catch (Exception e) {
+            rep = new Reponse(0, e.getMessage(), null);
+
+        }
+        return rep;
+    }
+    
+    
 
     @ApiOperation("Liste des produits liquides par page")
     @GetMapping(value = "/pproduitsLiq", produces = MediaType.APPLICATION_JSON_VALUE)

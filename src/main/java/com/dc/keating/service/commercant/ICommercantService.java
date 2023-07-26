@@ -45,6 +45,8 @@ public interface ICommercantService {
 
     public Page<KtPointDeVente> searchPointsDeVente(String mc, Pageable pageable);
     
+    public Reponse ListPointDeVenteByCommercant(String codeC, Pageable pageable);
+    
     public KtPointDeVente updatePointsDeVente(KtPointDeVente pointDeVente);
     
     public void deletePointsDeVente(String code);

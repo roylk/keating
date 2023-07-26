@@ -184,5 +184,11 @@ public class CommercantServiceImpl implements ICommercantService {
         return pointDeVenteRepository.existsById(code);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public Reponse ListPointDeVenteByCommercant(String codeC, Pageable pageable) {
+        return new Reponse(1, "liste des points de vente par commercant ",pointDeVenteRepository.findAllPointDeVenteByCommercant(codeC, pageable));
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
       
 }
