@@ -37,6 +37,7 @@ public interface IStockService {
     public Reponse listeProduitL(Pageable pageable);
     public Reponse listeProduitS(Pageable pageable);
     public Reponse ListProduitByPV(String codeP, Pageable pageable);
+    public void updateProduitStatus(List<KtProduit> listeProduit );
     
     public Reponse ListeOperationStock(Pageable pageable);
     public Reponse ListeEntreeStock(Pageable pageable);

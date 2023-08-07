@@ -21,6 +21,10 @@ import com.dc.keating.entities.KtProduitLiquide;
 import com.dc.keating.entities.KtProduitSolide;
 import com.dc.keating.entities.KtSortieStock;
 import com.dc.keating.entities.KtSousCategorieProduit;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -94,6 +98,7 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public Reponse listeProduit(Pageable pageable) {
+        updateProduitStatus(listeProduit());
         return new Reponse(1, "liste  des produits", produitRepository.findAll(pageable));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -403,6 +408,27 @@ public class StockServiceImpl implements IStockService{
     @Override
     public Reponse ListProduitByPV(String codeP, Pageable pageable) {
         return new Reponse(1, "liste des produits par point de vente",produitRepository.findAllProduitByPV(codeP, pageable));
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void updateProduitStatus(List<KtProduit> listeProduit) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        
+        for (KtProduit produit : listeProduit){
+            Duration dlcDiff = Duration.between(produit.getDlc(), currentDateTime);
+            Duration ddmDiff = Duration.between(produit.getDdm(), currentDateTime);
+            if (produit.getDdm().isAfter(currentDateTime) || produit.getDlc().isAfter(currentDateTime) || produit.getQuantiteTotale()==0){
+                produit.setStatut((short)0);}
+            else if (produit.getQuantiteTotale()<=15){
+                produit.setStatut((short)2);
+            }else if (dlcDiff.toDays()<=15 || ddmDiff.toDays()<=15){
+                produit.setStatut((short)3);
+            }
+            else{
+                produit.setStatut((short)1);
+            }   
+        }
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
