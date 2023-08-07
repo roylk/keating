@@ -17,6 +17,7 @@ import com.dc.keating.service.commercant.ICommercantService;
 import com.dc.keating.service.stock.IStockService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -346,6 +347,8 @@ public class StockRestController {
             @RequestParam(name = "size", defaultValue = "5") int size) {
         Reponse rep;
         try {
+            List<KtProduit> listProduit = stockService.listeProduit();
+            stockService.updateProduitStatus(listProduit);
             rep = stockService.listeProduit(PageRequest.of(page, size));
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);
