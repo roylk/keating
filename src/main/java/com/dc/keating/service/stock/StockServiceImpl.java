@@ -439,13 +439,14 @@ public class StockServiceImpl implements IStockService{
         Duration dlcDiff = Duration.between(currentDateTime, produit.getDlc());
         Duration ddmDiff = Duration.between(currentDateTime, produit.getDdm());
         long minDiff = Math.min(Math.abs(dlcDiff.toDays()), Math.abs(ddmDiff.toDays()));
+         //if (produit.getDdm().isAfter(currentDateTime) || produit.getQuantiteTotale() == 0)
 
-        if (produit.getDdm().isAfter(currentDateTime) || produit.getQuantiteTotale() == 0) {
+        if (produit.getQuantiteTotale() == 0) {
             produit.setStatut((short) 0);
         } else if (produit.getQuantiteTotale() <= 15) {
             produit.setStatut((short) 2);
-        } else if (minDiff <= 15) {
-            produit.setStatut((short) 3);
+        /*} else if (minDiff <= 15) {
+            produit.setStatut((short) 3);*/
         } else {
             produit.setStatut((short) 1);
         }
