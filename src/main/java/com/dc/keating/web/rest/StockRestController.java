@@ -347,8 +347,8 @@ public class StockRestController {
             @RequestParam(name = "size", defaultValue = "5") int size) {
         Reponse rep;
         try {
-            List<KtProduit> listProduit = stockService.listeProduit();
-            stockService.updateProduitStatus(listProduit);
+            //List<KtProduit> listProduit = stockService.listeProduit();
+            //stockService.updateProduitStatus(listProduit);
             rep = stockService.listeProduit(PageRequest.of(page, size));
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);

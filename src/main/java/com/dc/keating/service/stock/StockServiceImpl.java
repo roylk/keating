@@ -98,7 +98,8 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public Reponse listeProduit(Pageable pageable) {
-        //updateProduitStatus(listeProduit());
+        Page<KtProduit> data = produitRepository.findAll(pageable);
+        updateProduitStatus(data.getContent());
         return new Reponse(1, "liste  des produits", produitRepository.findAll(pageable));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
