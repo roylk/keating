@@ -412,7 +412,7 @@ public class StockServiceImpl implements IStockService{
     }
 
     @Override
-    public void updateProduitStatus(List<KtProduit> listeProduit) {
+    /*public void updateProduitStatus(List<KtProduit> listeProduit) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         
         for (KtProduit produit : listeProduit){
@@ -430,7 +430,34 @@ public class StockServiceImpl implements IStockService{
             }   
         }
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }*/
+    
+    public void updateProduitStatus(List<KtProduit> listeProduit) {
+    LocalDateTime currentDateTime = LocalDateTime.now();
+
+    for (KtProduit produit : listeProduit) {
+        Duration dlcDiff = Duration.between(currentDateTime, produit.getDlc());
+        Duration ddmDiff = Duration.between(currentDateTime, produit.getDdm());
+        long minDiff = Math.min(Math.abs(dlcDiff.toDays()), Math.abs(ddmDiff.toDays()));
+
+        if (produit.getDdm().isAfter(currentDateTime) || produit.getQuantiteTotale() == 0) {
+            produit.setStatut((short) 0);
+        } else if (produit.getQuantiteTotale() <= 15) {
+            produit.setStatut((short) 2);
+        } else if (minDiff <= 15) {
+            produit.setStatut((short) 3);
+        } else {
+            produit.setStatut((short) 1);
+        }
     }
+}
+
+
+
+
+
+
+
     
     
 
