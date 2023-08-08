@@ -4,8 +4,10 @@
  */
 package com.dc.keating.service.email;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -34,9 +36,9 @@ public class EmailService {
             helper.setText(content, true); // true indique que le contenu est en HTML
 
             javaMailSender.send(message);
-        } catch (Exception e) {
+        } catch (MessagingException | MailException e) {
             // Gérer les exceptions ici
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
     
