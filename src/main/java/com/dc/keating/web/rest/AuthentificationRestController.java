@@ -11,6 +11,7 @@ import com.dc.keating.entities.KtRole;
 import com.dc.keating.entities.KtUtilisateur;
 import com.dc.keating.service.authentification.IAuthentificationService;
 import com.dc.keating.service.commercant.ICommercantService;
+import com.dc.keating.service.email.EmailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,9 @@ public class AuthentificationRestController {
 
     @Autowired
     private ICommercantService commercantService;
+    
+    @Autowired
+    private EmailService emailService;
 
     @ApiOperation("Conversion vers Bcrypt ")
     @PostMapping(value = "/convertToBcrypt")
@@ -67,8 +71,8 @@ public class AuthentificationRestController {
     @ApiOperation("Creer un utilisateur")
     @PostMapping(value = "/utilisateur", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse saveUser(@RequestBody KtUtilisateur utilisateur) {
-
-        String encPassWord = authentificationService.stringToBcrypt(utilisateur.getMotDePasse());
+        String planePassWord = utilisateur.getMotDePasse();
+        String encPassWord = authentificationService.stringToBcrypt(planePassWord);
         utilisateur.setMotDePasse(encPassWord);
 
         utilisateur.setCommercant(commercantService.searchCommercant(utilisateur.getCommercant().getCode()));
@@ -82,6 +86,9 @@ public class AuthentificationRestController {
         } else {
             KtUtilisateur user = authentificationService.saveUser(utilisateur);
             if (user != null) {
+                
+                emailService.sendEmail(utilisateur.getEmail(), "Confirmation de creation du compte", "Bienvenue chez keating, voici votre mot de passe: "+planePassWord);
+                
                 return new Reponse(1, "Enregistré avec succes", user);
             } else {
                 return new Reponse(0, "Une erreur s'est produite pendant l'enregistrement", null);
