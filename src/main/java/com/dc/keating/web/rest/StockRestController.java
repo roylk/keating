@@ -96,21 +96,20 @@ public class StockRestController {
             if (stockService.searchExistProduit(produit.getCode())) {
                 rep = new Reponse(0, "Le produit existe déjà", null);
             } else {
-                produit.setSousCategorieProduit(stockService.searchSousCategorieProduit(produit.getSousCategorieProduit().getCode()));
-                produit.setPointDeVente(commercantService.searchPointDeVente(produit.getPointDeVente().getCode()));
+                produit.setSousCategorieProduit(stockService
+                .searchSousCategorieProduit(produit.getSousCategorieProduit().getCode()));
+                produit.setPointDeVente(commercantService
+                 .searchPointDeVente(produit.getPointDeVente().getCode()));
                 Double quantiteTotale = produit.getPackaging() * produit.getQuantiteUnitaire();
                 produit.setQuantiteTotale(quantiteTotale);
                 Double poidsTotal = produit.getPoidsUnitaire() * quantiteTotale;
                 produit.setPoidsTotal(poidsTotal);
                 KtProduit savedProduit = stockService.saveProduit(produit);
-
                 rep = new Reponse(1, "Produit enregistré avec succès", savedProduit);
-
             }
         } catch (Exception e) {
             rep = new Reponse(0, e.getMessage(), null);
         }
-
         return rep;
     }
 
@@ -356,7 +355,7 @@ public class StockRestController {
         }
         return rep;
     }
-    
+
     @ApiOperation("Liste des produits par  point de vente")
     @GetMapping(value = "/produitparpv", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllProduitByPV(String codeP, @RequestParam(name = "page", defaultValue = "0") int page,
@@ -370,8 +369,6 @@ public class StockRestController {
         }
         return rep;
     }
-    
-    
 
     @ApiOperation("Liste des produits liquides par page")
     @GetMapping(value = "/pproduitsLiq", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -416,7 +413,7 @@ public class StockRestController {
         }
         return rep;
     }
-    
+
     @ApiOperation("Liste des opérations recherchées par mot clé ")
     @GetMapping(value = "/rechoperation", produces = MediaType.APPLICATION_JSON_VALUE)
     public Reponse getAllOperationBy(String mc, @RequestParam(name = "page", defaultValue = "0") int page,

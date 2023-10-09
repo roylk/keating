@@ -42,8 +42,7 @@ public class AuthentificationServiceImpl implements IAuthentificationService {
     @Override
     public boolean searchExistsUser(String login, String motDePasse) {
         KtUtilisateur user;
-        System.out.println("utilisateur.........."+login);
-        System.out.println("utilisateur.........."+motDePasse);
+        
         user = utilisateurRepository.findbyLogin(login);
         System.out.println("utilisateur.........."+user);
         if (user != null) {

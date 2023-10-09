@@ -45,15 +45,12 @@ import lombok.NoArgsConstructor;
     //@NamedQuery(name = "KtProduit.findByVolumeUnitaire", query = "SELECT k FROM KtProduit k WHERE k.volumeUnitaire = :volumeUnitaire"),
    // @NamedQuery(name = "KtProduit.findByPoidsUnitaire", query = "SELECT k FROM KtProduit k WHERE k.poidsUnitaire = :poidsUnitaire"),
     @NamedQuery(name = "KtProduit.findByQuantiteUnitaire", query = "SELECT k FROM KtProduit k WHERE k.quantiteUnitaire = :quantiteUnitaire")})
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "NATURE_PROD", discriminatorType = DiscriminatorType.STRING, length = 6)
 public class KtProduit extends AuditModel implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -64,127 +61,26 @@ public class KtProduit extends AuditModel implements Serializable {
     @Column(name = "nutriscore", length = 4)
     private String nutriscore;
     @Column(name = "dlc")
-    //@Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dlc;
     @Column(name = "ddm")
-    //@Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime ddm;
      @Column(name = "packaging", precision = 22, scale = 0)
     private Double packaging ;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-   /* @Column(name = "volume_unitaire", precision = 22, scale = 0)
-    private Double volumeUnitaire;
-    @Column(name = "poids_unitaire", precision = 22, scale = 0)
-    private Double poidsUnitaire;
-    @Column(name = "quantite", precision = 22, scale = 0)
-      private Double quantite;*/
     @Column(name = "quantite_unitaire", precision = 22, scale = 0)
     private Double quantiteUnitaire;
     @Column(name = "quantite_totale", precision = 22, scale = 0)
     private Double quantiteTotale;
     @Column(nullable = false)
     private short statut;
-
     @JoinColumn(name = "sous_categorie_produit", referencedColumnName = "code", nullable = false)
     @ManyToOne(optional = false)
     private KtSousCategorieProduit sousCategorieProduit;
-    
     @JoinColumn(name = "point_de_vente", referencedColumnName = "code", nullable = false)
     @ManyToOne(optional = false)
     private KtPointDeVente pointDeVente;
     
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "produit")
-    private List<KtOperationStock> ktOperationStockList;*/
-    
-   /* public KtProduit() {
-        super();
-    }
-
-    public KtProduit(String code) {
-        this.code = code;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getLibelle() {
-        return libelle;
-    }
-
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
-
-    public String getNutriscore() {
-        return nutriscore;
-    }
-
-    public void setNutriscore(String nutriscore) {
-        this.nutriscore = nutriscore;
-    }
-
-    public Date getDlc() {
-        return dlc;
-    }
-
-    public void setDlc(Date dlc) {
-        this.dlc = dlc;
-    }
-
-    public Date getDdm() {
-        return ddm;
-    }
-
-    public void setDdm(Date ddm) {
-        this.ddm = ddm;
-    }
-
-    public Double getVolumeUnitaire() {
-        return volumeUnitaire;
-    }
-
-    public void setVolumeUnitaire(Double volumeUnitaire) {
-        this.volumeUnitaire = volumeUnitaire;
-    }
-
-    public Double getPoidsUnitaire() {
-        return poidsUnitaire;
-    }
-
-    public void setPoidsUnitaire(Double poidsUnitaire) {
-        this.poidsUnitaire = poidsUnitaire;
-    }
-
-    public Double getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(Double quantite) {
-        this.quantite = quantite;
-    }
-
-    public KtPointDeVente getPointDeVente() {
-        return pointDeVente;
-    }
-
-    public void setPointDeVente(KtPointDeVente pointDeVente) {
-        this.pointDeVente = pointDeVente;
-    }
-    
-     public KtSousCategorieProduit getSousCategorieProduit() {
-        return sousCategorieProduit;
-    }
-
-    public void setSousCategorieProduit(KtSousCategorieProduit sousCategorieProduit) {
-        this.sousCategorieProduit = sousCategorieProduit;
-    }*/
     
 
     @Override

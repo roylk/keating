@@ -36,35 +36,32 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author user
  */
-
-@Service 
+@Service
 @Transactional
-public class StockServiceImpl implements IStockService{
-    
+public class StockServiceImpl implements IStockService {
+
     @Autowired
     KtSousCategorieProduitRepository sousCatProduitRepository;
-    
+
     @Autowired
     KtCategorieProduitRepository catProduitRepository;
-    
+
     @Autowired
     KtProduitRepository produitRepository;
-    
+
     @Autowired
     KtProduitSolideRepository produitSolideRepository;
     @Autowired
     KtProduitLiquideRepository produitLiquideRepository;
-    
+
     @Autowired
     KtOperationStockRepository operationStockRepository;
-    
+
     @Autowired
     KtEntreeStockRepository entreeStockRepository;
-    
+
     @Autowired
     KtSortieStockRepository sortieStockRepository;
-    
-    
 
     @Override
     public List<KtSousCategorieProduit> listeSousCategorieProduit() {
@@ -74,7 +71,7 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public Reponse listeSousCategorieProduit(Pageable pageable) {
-        return new Reponse(1, "liste sous catégories des produits",sousCatProduitRepository.findAll(pageable));
+        return new Reponse(1, "liste sous catégories des produits", sousCatProduitRepository.findAll(pageable));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -115,7 +112,6 @@ public class StockServiceImpl implements IStockService{
         return catProduitRepository.save(catProduit);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
 
     @Override
     public KtProduit saveProduit(KtProduit produit) {
@@ -137,11 +133,10 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public KtProduit searchProduit(String code) {
-            return produitRepository.findbyId(code);    
-        }
-        //return produitRepository.findbyId(code);
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    
+        return produitRepository.findbyId(code);
+    }
+    //return produitRepository.findbyId(code);
+    //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 
     @Override
     public Page<KtSousCategorieProduit> SearchSousCategories(String mc, Pageable pageable) {
@@ -265,20 +260,20 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public Reponse ListeOperationStock(Pageable pageable) {
-        return new Reponse(1,"liste des opérations de stock", operationStockRepository.findAll(pageable));
+        return new Reponse(1, "liste des opérations de stock", operationStockRepository.findAll(pageable));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Reponse ListeEntreeStock(Pageable pageable) {
-        return new Reponse(1,"liste des opérations d'entrée en stock", entreeStockRepository.findAll(pageable));
-        
+        return new Reponse(1, "liste des opérations d'entrée en stock", entreeStockRepository.findAll(pageable));
+
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Reponse ListeSortieStock(Pageable pageable) {
-        return new Reponse(1,"liste des opérations de sortie de stock", sortieStockRepository.findAll(pageable));
+        return new Reponse(1, "liste des opérations de sortie de stock", sortieStockRepository.findAll(pageable));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -314,7 +309,7 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public KtOperationStock updateOperation(KtOperationStock operation) {
-       return operationStockRepository.saveAndFlush(operation);
+        return operationStockRepository.saveAndFlush(operation);
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -337,132 +332,98 @@ public class StockServiceImpl implements IStockService{
 
     @Override
     public void entrerStock(String codeProduit, Double quantite, String description, String nom) {
-        Double poidsEntre, volumeEntre ;
+        Double poidsEntre, volumeEntre;
         KtProduit produit = produitRepository.findbyId(codeProduit);
-        produit.setQuantiteUnitaire(quantite+produit.getQuantiteUnitaire());
-        produit.setQuantiteTotale(produit.getQuantiteTotale()+(produit.getPackaging()*quantite));
-        if(produit instanceof KtProduitLiquide){
+        produit.setQuantiteUnitaire(quantite + produit.getQuantiteUnitaire());
+        produit.setQuantiteTotale(produit.getQuantiteTotale() + (produit.getPackaging() * quantite));
+        if (produit instanceof KtProduitLiquide) {
             poidsEntre = 0.0;
-            volumeEntre = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire()*produit.getPackaging();
-            ((KtProduitLiquide) produit).setVolumeTotal(volumeEntre+((KtProduitLiquide) produit).getVolumeTotal());
+            volumeEntre = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire() * produit.getPackaging();
+            ((KtProduitLiquide) produit).setVolumeTotal(volumeEntre + ((KtProduitLiquide) produit).getVolumeTotal());
             KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
             operationStockRepository.save(entreeStock);
-            
         }
-        if(produit instanceof KtProduitSolide){
+        if (produit instanceof KtProduitSolide) {
             volumeEntre = 0.0;
             poidsEntre = quantite * ((KtProduitSolide) produit).getPoidsUnitaire();
             ((KtProduitSolide) produit).setPoidsTotal(poidsEntre + ((KtProduitSolide) produit).getPoidsTotal());
             KtEntreeStock entreeStock = new KtEntreeStock(volumeEntre, poidsEntre, quantite, nom, description, produit);
             operationStockRepository.save(entreeStock);
-        }  
+        }
         produitRepository.save(produit);
-        
-     //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void sortirStock(String codeProduit, Double quantite, String nom, String description) {
-        Double poidsSorti, volumeSorti ;
+        Double poidsSorti, volumeSorti;
         KtProduit produit = produitRepository.findbyId(codeProduit);
         Double quantiteDisponible = produit.getQuantiteTotale();
-        if(quantite > quantiteDisponible)
+        if (quantite > quantiteDisponible) {
             throw new UnsupportedOperationException("quantite disponible insuffisante");
-        produit.setQuantiteUnitaire(produit.getQuantiteUnitaire()-(quantite/produit.getPackaging()));
-        produit.setQuantiteTotale(quantiteDisponible-quantite);
-        if(produit instanceof KtProduitLiquide){
+        }
+        produit.setQuantiteUnitaire(produit.getQuantiteUnitaire() - (quantite / produit.getPackaging()));
+        produit.setQuantiteTotale(quantiteDisponible - quantite);
+        if (produit instanceof KtProduitLiquide) {
             poidsSorti = 0.0;
             volumeSorti = quantite * ((KtProduitLiquide) produit).getVolumeUnitaire();
-            ((KtProduitLiquide) produit).setVolumeTotal(((KtProduitLiquide) produit).getVolumeTotal()- volumeSorti);
+            ((KtProduitLiquide) produit).setVolumeTotal(((KtProduitLiquide) produit)
+                    .getVolumeTotal() - volumeSorti);
             KtSortieStock sortieStock = new KtSortieStock(volumeSorti, poidsSorti, quantite, nom, description, produit);
             operationStockRepository.save(sortieStock);
-            
         }
-        if(produit instanceof KtProduitSolide){
+        if (produit instanceof KtProduitSolide) {
             volumeSorti = 0.0;
             poidsSorti = quantite * ((KtProduitSolide) produit).getPoidsUnitaire();
-            ((KtProduitSolide) produit).setPoidsTotal(((KtProduitSolide) produit).getPoidsTotal()-poidsSorti);
-            KtSortieStock sortieStock = new KtSortieStock(volumeSorti, poidsSorti, quantite,null, null, produit);
+            ((KtProduitSolide) produit).setPoidsTotal(((KtProduitSolide) produit)
+                    .getPoidsTotal() - poidsSorti);
+            KtSortieStock sortieStock 
+                    = new KtSortieStock(volumeSorti, poidsSorti, quantite, null, null, produit);
             operationStockRepository.save(sortieStock);
-        }  
+        }
         produitRepository.save(produit);
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /*@Override
     public KtOperationStock SearchOperation(String code) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }*/
-
     @Override
     public Reponse ListOperationByProduct(String codeP, Pageable pageable) {
-        return new Reponse(1, "liste des opérations par produit",operationStockRepository.findAllOperationByProduit(codeP, pageable));
+        return new Reponse(1, "liste des opérations par produit", operationStockRepository.findAllOperationByProduit(codeP, pageable));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Page<KtOperationStock> ListeOperationByProduit(String codeP, Pageable pageable) {
         return operationStockRepository.findAllOperationByProduit(codeP, pageable);
-       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Reponse ListProduitByPV(String codeP, Pageable pageable) {
-        return new Reponse(1, "liste des produits par point de vente",produitRepository.findAllProduitByPV(codeP, pageable));
+        return new Reponse(1, "liste des produits par point de vente", produitRepository.findAllProduitByPV(codeP, pageable));
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    /*public void updateProduitStatus(List<KtProduit> listeProduit) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        
-        for (KtProduit produit : listeProduit){
-            Duration dlcDiff = Duration.between(produit.getDlc(), currentDateTime);
-            Duration ddmDiff = Duration.between(produit.getDdm(), currentDateTime);
-            if (produit.getDdm().isAfter(currentDateTime) || produit.getDlc().isAfter(currentDateTime) || produit.getQuantiteTotale()==0){
-                produit.setStatut((short)0);}
-            else if (produit.getQuantiteTotale()<=15){
-                produit.setStatut((short)2);
-            }else if (dlcDiff.toDays()<=15 || ddmDiff.toDays()<=15){
-                produit.setStatut((short)3);
-            }
-            else{
-                produit.setStatut((short)1);
-            }   
-        }
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }*/
-    
     public void updateProduitStatus(List<KtProduit> listeProduit) {
-    LocalDateTime currentDateTime = LocalDateTime.now();
-
-    for (KtProduit produit : listeProduit) {
-        Duration dlcDiff = Duration.between(currentDateTime, produit.getDlc());
-        Duration ddmDiff = Duration.between(currentDateTime, produit.getDdm());
-        long minDiff = Math.min(Math.abs(dlcDiff.toDays()), Math.abs(ddmDiff.toDays()));
-        if (produit.getDdm().isBefore(currentDateTime) || produit.getQuantiteTotale() == 0){
-
-        //if (produit.getQuantiteTotale() == 0) {
-            produit.setStatut((short) 0);
-        } else if (produit.getQuantiteTotale() <= 15) {
-            produit.setStatut((short) 2);
-        } else if (minDiff <= 15) {
-            produit.setStatut((short) 3);
-        } else {
-            produit.setStatut((short) 1);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        for (KtProduit produit : listeProduit) {
+            Duration dlcDiff = Duration.between(currentDateTime, produit.getDlc());
+            Duration ddmDiff = Duration.between(currentDateTime, produit.getDdm());
+            long minDiff = Math.min(Math.abs(dlcDiff.toDays()), Math.abs(ddmDiff.toDays()));
+            if (produit.getDdm().isBefore(currentDateTime) || produit.getQuantiteTotale() == 0) {
+                produit.setStatut((short) 0);
+            } else if (produit.getQuantiteTotale() <= 15) {
+                produit.setStatut((short) 2);
+            } else if (minDiff <= 15) {
+                produit.setStatut((short) 3);
+            } else {
+                produit.setStatut((short) 1);
+            }
         }
     }
-}
 
-
-
-
-
-
-
-    
-    
-
-   
-    
 }
